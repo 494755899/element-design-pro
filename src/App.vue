@@ -124,6 +124,8 @@
     background: #ffffff;
   }
   .el-aside-fixSiderbar-Fixed {
+    overflow-y: scroll;
+    height: 100%;
     position: fixed;
     top: 0;
     left: 0;

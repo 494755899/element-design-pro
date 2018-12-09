@@ -22,7 +22,6 @@
 </template>
 
 <style lang="less">
-// .element-pro-layout-aside {
   // 菜单的基本样式
   .element-pro-layout-menu-verical:not(.el-menu--collapse) {
     width: 256px;
@@ -51,18 +50,10 @@
       font-weight: 600;
     }
   }
-  // 明色系样式
-  .el-menu-light-navTheme, .el-menu-light--vertical {
-    // 明色系的logo样式
+  .el-menu-light-navTheme,.el-menu-light--vertical {
     .element-pro-layout-logo {
       background: #fff;
       box-shadow: 1px 1px 0 0 #e8e8e8;
-      h1 {
-        color: #1890ff;
-      }
-    }
-    .el-menu-item.is-active {
-      border-right: 2px solid #1890ff;
     }
   }
   // 暗色系样式
@@ -75,27 +66,18 @@
       }
     }
     .el-submenu .el-menu-item {
-      background: #000c17 !important;
       box-shadow: inset 0 2px 8px rgba(0,0,0,.45);
     }
     .el-submenu.is-active > .el-submenu__title{
       color: #ffffff !important;
-      .el-submenu__icon-arrow {
-        color: #ffffff !important
-      }
-      .icon {
+      i {
         color: #ffffff;
       }
-    }
-    .el-menu-item.is-active {
-      color: #fff !important;
-      background: #1890ff !important;
     }
     .el-menu-item:hover {
       color: #ffffff !important;
     }
   }
-// }
 </style>
 
 <script>
