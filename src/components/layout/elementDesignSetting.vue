@@ -28,6 +28,7 @@
         </div>
         <element-design-theme/>
       </div>
+      <div class="element-divider-horizontal"></div>
       <div>
         <!-- 顶部导航设置 -->
         <div class="set-navgiation">
@@ -66,6 +67,7 @@
         <div>
           <span>固定侧边菜单</span>
           <el-switch
+            :width='35'
             :disabled="layout === 'top'"
             @change="(value) => ChangeSettingMode('fixSiderbar', value)"
             v-model="checkboxFixSiderbar"
@@ -75,6 +77,7 @@
         <div>
           <span>固定 Header</span>
           <el-switch
+          :width='35'
            @change="(value) => ChangeSettingMode('fixHeader', value)"
             v-model="checkboxFixHeader"
           >
@@ -83,6 +86,7 @@
         <div>
           <span>下滑时隐藏 Header</span>
           <el-switch
+            :width='35'
             :disabled="!fixHeader"
             @change="(value) => ChangeSettingMode('hideHeader', value)"
             v-model="checkboxHideHeader"
@@ -92,6 +96,7 @@
         <div>
           <span>一屏流展式</span>
           <el-switch
+            :width='35'
             @change="(value) => ChangeSettingMode('onlyScreen', value)"
             v-model="checkboxOnlyScreen"
           >
@@ -100,19 +105,22 @@
         <div>
           <span>回到顶部</span>
           <el-switch
+           :width='35'
             @change="(value) => ChangeSettingMode('backToTop', value)"
             v-model="checkboxBackToTop"
           >
           </el-switch>
         </div>
       </div>
+      <div class="element-divider-horizontal"></div>
       <div>
         <!-- 顶部导航设置 -->
         <div class="element-design-layout-blindness-mode">
           <p>其它设置</p>
-          <div>
+          <div class="wrap">
             <span>色弱模式</span>
             <el-switch
+              :width='35'
               @change="(value) => ChangeSettingMode('blindness', value)"
               v-model="checkboxBlindness"
             >
@@ -120,6 +128,8 @@
           </div>
         </div>
       </div>
+      <div class="element-divider-horizontal"></div>
+       <el-button size="small" icon="el-icon-star-off" type="primary" class="save-button">保存配置</el-button>
       <el-button slot="reference" type="primary" icon="el-icon-edit" circle></el-button>
     </el-popover>
   </div>
@@ -183,11 +193,29 @@ export default {
   top: 50%;
   right: 0;
 }
-.element-design-layout-blindness-mode {
-  margin-top: 10px;
-}
 .setting-popper {
-  .set-navgiation, .element-design-layout-blindness-mode {
+  .element-design-layout-blindness-mode {
+    margin-top: 10px;
+    p {
+      color: rgba(0, 0, 0, 0.85);
+    }
+    .wrap {
+      margin-top: 24px;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  .element-divider-horizontal {
+    color: rgba(0, 0, 0, 0.65);
+    background: #e8e8e8;
+    display: block;
+    height: 1px;
+    width: 100%;
+    min-width: 100%;
+    margin: 24px 0;
+    clear: both;
+  }
+  .set-navgiation {
     p {
       font-size: 14px;
       color: rgba(0,0,0,.85);
@@ -210,7 +238,7 @@ export default {
   }
   .setting-another {
     > div {
-      margin-top: 20px;
+      margin-top: 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -218,6 +246,9 @@ export default {
         width: 100px;
       }
     }
+  }
+  .save-button {
+    float: right;
   }
 }
 </style>

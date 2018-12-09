@@ -1,11 +1,11 @@
 <template>
 <div class="element-design-layout-setting-drawer-theme-color">
-  <p>整体风格设置</p>
+  <p>主题色</p>
   <div>
     <ul>
       <el-tooltip v-for="item in colorList" :key="item.color" effect="dark" :content="item.popper" placement="top">
         <li :style="{background: item.color}" @click="theme = item.color">
-          <i v-show="theme === item.color" class="elementicon el-icon-check"></i>
+          <i v-show="theme === item.color" class="el-icon-check"></i>
         </li>
       </el-tooltip>
     </ul>
@@ -152,17 +152,24 @@ export default {
 
 <style lang="less">
 .element-design-layout-setting-drawer-theme-color {
+  p {
+    margin-bottom: 12px;
+    color: rgba(0, 0, 0, 0.65);
+  }
+  margin-top: 24px;
+  ul {
+    display: flex;
+    justify-content: flex-start;
+  }
   li {
     width: 20px;
     height: 20px;
     border-radius: 2px;
-    display: inline-block;
     cursor: pointer;
     margin-right: 8px;
     text-align: center;
     color: #fff;
     font-weight: 700;
-    position: relative;
   }
 }
 </style>
