@@ -65,7 +65,12 @@
         color: #fff;
       }
     }
+    .el-menu.el-menu--inline {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45) inset;
+      background: #000c17 !important;
+    }
     .el-submenu .el-menu-item {
+      background: none !important;
       box-shadow: inset 0 2px 8px rgba(0,0,0,.45);
     }
     .el-submenu.is-active > .el-submenu__title{
