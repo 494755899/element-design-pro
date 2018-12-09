@@ -1,5 +1,5 @@
 <template>
-<div id="app">
+<div id="app" :style="[blindnessTheme]">
   <el-container>
     <el-aside
       :class="[
@@ -203,7 +203,10 @@ export default {
     ElementDesignSetting
   },
   computed: {
-    ...mapState(['navTheme', 'fixSiderbar', 'fixHeader', 'onlyScreen'])
+    blindnessTheme () {
+      return this.blindness ? { filter: 'invert(80%)' } : {}
+    },
+    ...mapState(['navTheme', 'fixSiderbar', 'fixHeader', 'onlyScreen', 'blindness'])
   },
   watch: {
     onlyScreen: {

@@ -106,6 +106,20 @@
           </el-switch>
         </div>
       </div>
+      <div>
+        <!-- 顶部导航设置 -->
+        <div class="element-design-layout-blindness-mode">
+          <p>其它设置</p>
+          <div>
+            <span>色弱模式</span>
+            <el-switch
+              @change="(value) => ChangeSettingMode('blindness', value)"
+              v-model="checkboxBlindness"
+            >
+            </el-switch>
+          </div>
+        </div>
+      </div>
       <el-button slot="reference" type="primary" icon="el-icon-edit" circle></el-button>
     </el-popover>
   </div>
@@ -123,7 +137,8 @@ export default {
       checkboxFixHeader: false,
       checkboxHideHeader: false,
       checkboxOnlyScreen: false,
-      checkboxBackToTop: false
+      checkboxBackToTop: false,
+      checkboxBlindness: false
     }
   },
   components: {
@@ -168,9 +183,11 @@ export default {
   top: 50%;
   right: 0;
 }
-
+.element-design-layout-blindness-mode {
+  margin-top: 10px;
+}
 .setting-popper {
-  .set-navgiation {
+  .set-navgiation, .element-design-layout-blindness-mode {
     p {
       font-size: 14px;
       color: rgba(0,0,0,.85);

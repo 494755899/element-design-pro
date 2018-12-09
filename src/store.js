@@ -12,7 +12,8 @@ export default new Vuex.Store({
     onlyScreen: false,
     navTheme: 'dark',
     hideHeader: false,
-    backToTop: false
+    backToTop: false,
+    blindness: false
   },
   mutations: {
     changeMode (state, { modeType, mode }) {
