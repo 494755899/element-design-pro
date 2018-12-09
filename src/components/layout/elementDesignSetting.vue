@@ -26,6 +26,7 @@
             </el-tooltip>
           </div>
         </div>
+        <element-design-theme/>
       </div>
       <div>
         <!-- 顶部导航设置 -->
@@ -112,9 +113,11 @@
 
 <script>
 import { mapState } from 'vuex'
+import ElementDesignTheme from './elementDesignTheme'
 export default {
   data () {
     return {
+      primaryColor: '#722ED1',
       selectContentWidth: 'Fixed',
       checkboxFixSiderbar: false,
       checkboxFixHeader: false,
@@ -122,6 +125,9 @@ export default {
       checkboxOnlyScreen: false,
       checkboxBackToTop: false
     }
+  },
+  components: {
+    ElementDesignTheme
   },
   computed: {
     ...mapState(['layout', 'contentWidth', 'fixSiderbar', 'fixHeader', 'onlyScreen', 'navTheme', 'hideHeader', 'backToTop']),
@@ -162,6 +168,7 @@ export default {
   top: 50%;
   right: 0;
 }
+
 .setting-popper {
   .set-navgiation {
     p {
