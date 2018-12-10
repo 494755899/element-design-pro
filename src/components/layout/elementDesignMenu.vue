@@ -65,6 +65,13 @@
         color: #fff;
       }
     }
+    .el-submenu__title:hover {
+      color: #ffffff !important;
+      background: rgb(0, 21, 41) !important;
+      i {
+        color: #ffffff;
+      }
+    }
     .el-menu.el-menu--inline {
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45) inset;
       background: #000c17 !important;

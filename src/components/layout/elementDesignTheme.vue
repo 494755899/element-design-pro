@@ -16,11 +16,17 @@
 <script>
 
 const version = require('element-ui/package.json').version // element-ui version from node_modules
-const ORIGINAL_THEME = '#409EFF' // default color
 
 export default {
+  created () {
+    if (this.$store.state.primaryColor !== '#1890FF') {
+      this.theme = this.$store.state.primaryColor
+      this.flag = false
+    }
+  },
   data () {
     return {
+      flag: true,
       colorList: [
         { popper: '薄暮', color: '#F5222D' },
         { popper: '火山', color: '#FA541C' },
@@ -31,18 +37,21 @@ export default {
         { popper: '极客蓝', color: '#2F54EB' },
         { popper: '酱紫', color: '#722ED1' }
       ],
+      ORIGINAL_THEME: '#409EFF',
       theme: '#1890FF'
     }
   },
   watch: {
     theme (val, oldVal) {
       if (typeof val !== 'string') return
+      this.$store.commit('changeMode', { modeType: 'primaryColor', mode: val })
       const themeCluster = this.getThemeCluster(val.replace('#', ''))
       const originalCluster = this.getThemeCluster(oldVal.replace('#', ''))
       console.log(themeCluster, originalCluster)
       const getHandler = (variable, id) => {
         return () => {
-          const originalCluster = this.getThemeCluster(ORIGINAL_THEME.replace('#', ''))
+          const originalCluster = this.getThemeCluster(this.ORIGINAL_THEME.replace('#', ''))
+          console.log(originalCluster)
           const newStyle = this.updateStyle(this[variable], originalCluster, themeCluster)
 
           let styleTag = document.getElementById(id)
@@ -74,10 +83,13 @@ export default {
         if (typeof innerText !== 'string') return
         style.innerText = this.updateStyle(innerText, originalCluster, themeCluster)
       })
-      this.$message({
-        message: '换肤成功',
-        type: 'success'
-      })
+      if (this.flag) {
+        this.$message({
+          message: '换肤成功',
+          type: 'success'
+        })
+      }
+      this.flag = true
     }
   },
 

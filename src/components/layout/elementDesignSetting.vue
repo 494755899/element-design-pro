@@ -4,7 +4,7 @@
       popper-class="setting-popper"
       placement="right"
       width="300"
-      trigger="click">
+      trigger="hover">
       <div>
         <!-- 顶部主题设置 -->
         <div class="set-navgiation">
@@ -129,7 +129,7 @@
         </div>
       </div>
       <div class="element-divider-horizontal"></div>
-       <el-button size="small" icon="el-icon-star-off" type="primary" class="save-button">保存配置</el-button>
+       <el-button size="small" icon="el-icon-star-off" type="primary" class="save-button" @click="saveSetting">保存配置</el-button>
       <el-button slot="reference" type="primary" icon="el-icon-edit" circle></el-button>
     </el-popover>
   </div>
@@ -139,9 +139,16 @@
 import { mapState } from 'vuex'
 import ElementDesignTheme from './elementDesignTheme'
 export default {
+  created () {
+    this.checkboxFixSiderbar = this.fixSiderbar
+    this.checkboxFixHeader = this.fixHeader
+    this.checkboxHideHeader = this.hideHeader
+    this.checkboxOnlyScreen = this.onlyScreen
+    this.checkboxBackToTop = this.backToTop
+    this.checkboxBlindness = this.blindness
+  },
   data () {
     return {
-      primaryColor: '#722ED1',
       selectContentWidth: 'Fixed',
       checkboxFixSiderbar: false,
       checkboxFixHeader: false,
@@ -155,7 +162,7 @@ export default {
     ElementDesignTheme
   },
   computed: {
-    ...mapState(['layout', 'contentWidth', 'fixSiderbar', 'fixHeader', 'onlyScreen', 'navTheme', 'hideHeader', 'backToTop']),
+    ...mapState(['layout', 'primaryColor', 'contentWidth', 'fixSiderbar', 'fixHeader', 'onlyScreen', 'navTheme', 'hideHeader', 'backToTop', 'blindness']),
     contentWidthOp () {
       if (this.layout === 'slide') {
         return [{ label: '定宽', value: 'Fixed' }]
@@ -167,6 +174,25 @@ export default {
   methods: {
     ChangeSettingMode (modeType, mode) {
       this.$store.commit('changeMode', { modeType, mode })
+    },
+    saveSetting () {
+      const { layout, contentWidth, fixSiderbar, fixHeader, onlyScreen, navTheme, hideHeader, backToTop, primaryColor, blindness } = this
+      localStorage.setting = JSON.stringify({
+        layout,
+        contentWidth,
+        fixSiderbar,
+        fixHeader,
+        onlyScreen,
+        navTheme,
+        hideHeader,
+        backToTop,
+        primaryColor,
+        blindness
+      })
+      this.$message({
+        type: 'success',
+        message: '保存配置成功'
+      })
     }
   },
   watch: {
