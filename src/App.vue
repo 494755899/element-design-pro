@@ -1,105 +1,26 @@
 <template>
 <div id="app" :style="[blindnessTheme]">
-  <el-container>
-    <el-aside
-      :class="[
-        navTheme === 'dark' ? 'el-aside-dark-navTheme' : 'el-aside-light-navTheme',
-        {'el-aside-fixSiderbar-Fixed' : fixSiderbar}
-      ]"
-    >
+  <el-container
+    :class="[
+      navTheme === 'dark' ? 'el-dark-navTheme':'el-light-navTheme',
+      layout === 'slide' ? 'el-slide-mode' : 'el-top-mode',
+      {'el-aside-fixSiderbar-Fixed el-container-fixSiderbar-Fixed-collapse': fixSiderbar && !isCollapse},
+      {'el-aside-fixSiderbar-Fixed el-container-fixSiderbar-Fixed-nocollapse' : fixSiderbar && isCollapse},
+      {'el-header-fixHeader el-header-fixHeader-collapse': fixHeader && !isCollapse},
+      {'el-header-fixHeader el-header-fixHeader-nocollapse': fixHeader && isCollapse}
+    ]"
+  >
+    <el-aside v-show="layout === 'slide'">
       <element-design-menu :isCollapse="isCollapse"/>
     </el-aside>
-    <el-container :class="[
-      {'el-container-fixSiderbar-Fixed-collapse': fixSiderbar && !isCollapse},
-      {'el-container-fixSiderbar-Fixed-nocollapse' : fixSiderbar && isCollapse}
-    ]">
-      <el-header height="64px"
-        :class="[
-          {'el-header-fixHeader el-header-fixHeader-collapse': fixHeader && !isCollapse},
-          {'el-header-fixHeader el-header-fixHeader-nocollapse': fixHeader && isCollapse}
-        ]"
-      >
+    <el-container>
+      <el-header height="64px">
         <element-design-header :isCollapse="isCollapse" @menu-trigger="isCollapse = !isCollapse"/>
       </el-header>
       <el-main>
         <element-design-page-header ref='pageHeader'/>
         <div class="element-design-pro-page-wrapper-content" ref="pageContent">
-          <el-table
-            border
-            :data="tableData"
-            style="width: 100%">
-            <el-table-column
-              prop="date"
-              label="日期"
-              width="180">
-            </el-table-column>
-            <el-table-column
-              prop="name"
-              label="姓名"
-              width="180">
-            </el-table-column>
-            <el-table-column
-              prop="address"
-              label="地址">
-            </el-table-column>
-          </el-table>
-          <el-table
-            border
-            :data="tableData"
-            style="width: 100%">
-            <el-table-column
-              prop="date"
-              label="日期"
-              width="180">
-            </el-table-column>
-            <el-table-column
-              prop="name"
-              label="姓名"
-              width="180">
-            </el-table-column>
-            <el-table-column
-              prop="address"
-              label="地址">
-            </el-table-column>
-          </el-table>
-          <el-table
-            border
-            :data="tableData"
-            style="width: 100%">
-            <el-table-column
-              prop="date"
-              label="日期"
-              width="180">
-            </el-table-column>
-            <el-table-column
-              prop="name"
-              label="姓名"
-              width="180">
-            </el-table-column>
-            <el-table-column
-              prop="address"
-              label="地址">
-            </el-table-column>
-          </el-table>
-          <el-table
-            border
-            :data="tableData"
-            style="width: 100%">
-            <el-table-column
-              prop="date"
-              label="日期"
-              width="180">
-            </el-table-column>
-            <el-table-column
-              prop="name"
-              label="姓名"
-              width="180">
-            </el-table-column>
-            <el-table-column
-              prop="address"
-              label="地址">
-            </el-table-column>
-          </el-table>
+         <router-view/>
         </div>
       </el-main>
     </el-container>
@@ -117,18 +38,24 @@
     position: relative;
     z-index: 10;
   }
-  .el-aside-dark-navTheme {
-    background:#001529;
+  .el-dark-navTheme {
+    .el-aside {
+      background:#001529;
+    }
   }
-  .el-aside-light-navTheme {
-    background: #ffffff;
+  .el-light-navTheme {
+    .el-aside {
+      background: #ffffff;
+    }
   }
   .el-aside-fixSiderbar-Fixed {
-    overflow-y: scroll;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
+    .el-aside {
+      overflow-y: scroll;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
   }
   .el-container-fixSiderbar-Fixed-collapse {
     padding-left: 256px;
@@ -142,17 +69,23 @@
     padding: 0;
   }
   .el-header-fixHeader {
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 5;
-    transition: width .3s ease-in-out
+    .el-header {
+      position: fixed;
+      top: 0;
+      right: 0;
+      z-index: 5;
+      transition: width .3s ease-in-out
+    }
   }
   .el-header-fixHeader-collapse {
-    width: calc(100% - 256px)
+    .el-header {
+      width: calc(100% - 256px)
+    }
   }
   .el-header-fixHeader-nocollapse {
-    width: calc(100% - 60px)
+    .el-header {
+      width: calc(100% - 60px)
+    }
   }
   .el-menu{
     border: none;
@@ -208,7 +141,7 @@ export default {
     blindnessTheme () {
       return this.blindness ? { filter: 'invert(80%)' } : {}
     },
-    ...mapState(['navTheme', 'fixSiderbar', 'fixHeader', 'onlyScreen', 'blindness'])
+    ...mapState(['layout', 'navTheme', 'fixSiderbar', 'fixHeader', 'onlyScreen', 'blindness'])
   },
   watch: {
     onlyScreen: {

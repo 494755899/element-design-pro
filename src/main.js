@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import '@babel/polyfill'
 import ElementUI from 'element-ui'
+import VueRouter from 'vue-router'
 import 'normalize.css/normalize.css'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/css/reset.less'
@@ -9,7 +10,11 @@ import store from './store'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
+Vue.use(VueRouter)
+
+const router = new VueRouter({})
 new Vue({
   store,
+  router,
   render: h => h(App)
 }).$mount('#app')
