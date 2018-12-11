@@ -47,21 +47,9 @@
       font-weight: 600;
     }
   }
-  .el-light-navTheme,.el-menu-light--vertical {
-    .element-pro-layout-logo {
-      background: #fff;
-      box-shadow: 1px 1px 0 0 #e8e8e8;
-    }
-  }
-  // 暗色系样式
-  .el-dark-navTheme, .el-menu-dark--vertical, .el-menu-dark--horizontal {
-    // 暗色系的样式
-    .element-pro-layout-logo {
-      background: #002140;
-      // h1 {
-      //   color: #fff;
-      // }
-    }
+  // 这里是三种模式（slide暗模式， slide暗收起模式， top暗模式的菜单选项模式）
+  .el-dark-navTheme.el-slide-mode, .el-menu-dark--vertical, .el-menu-dark--horizontal{
+    // 每个item选项容器hover时的样式
     .el-submenu__title:hover {
       color: #ffffff !important;
       background: rgb(0, 21, 41) !important;
@@ -69,29 +57,48 @@
         color: #ffffff;
       }
     }
-    .el-menu.el-menu--inline {
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45) inset;
-      background: #000c17 !important;
+    // 每个item选项hover时的样式
+    .el-menu-item:hover {
+      color: #ffffff !important;
     }
-    .el-submenu .el-menu-item {
-      box-shadow: inset 0 2px 8px rgba(0,0,0,.45);
-    }
+    // 每个item选项选中时对应容器的高量样式
     .el-submenu.is-active > .el-submenu__title{
       color: #ffffff !important;
       i {
         color: #ffffff;
       }
     }
-    .el-menu-item:hover {
-      color: #ffffff !important;
+    // 每个item底色
+    .el-menu-item{
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45) inset;
+      background: #000c17 !important;
     }
   }
-  .el-dark-navTheme {
-    .element-pro-layout-logo {
-      background: #001529;
-      h1 {
-        color: #fff;
+  // top明色系时的选中时的底部按纽样式
+  .el-light-navTheme.el-top-mode {
+    .el-menu--horizontal>.el-submenu .el-submenu__title {
+      height: 64px;
+      line-height: 64px;
+    }
+  }
+  // 顶部模式所有的菜单剪头全部消失
+  .el-top-mode {
+    .el-submenu {
+      .el-submenu__icon-arrow {
+        display: none;
       }
+    }
+  }
+  .el-dark-navTheme.el-top-mode {
+    // // 顶部模式暗色系的时候把菜单的icon提亮
+    .el-submenu.is-active {
+      i {
+        color: #ffffff;
+      }
+    }
+    // 顶部模式暗色系的时候把底部选中的菜单的线条给消失
+    .el-submenu__title {
+      border-bottom: none !important;
     }
   }
 </style>

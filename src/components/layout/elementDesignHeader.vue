@@ -38,51 +38,9 @@
 .el-top-mode.el-dark-navTheme {
   .element-pro-layout-header {
     background: #001529;
-    .el-submenu__title {
-      color: rgba(255, 255, 255, 0.65) !important;
-      border-bottom: none !important;
-      &:hover {
-        .title {
-          color: #ffffff;
-        }
-        i {
-          color: #ffffff;
-        }
-      }
-    }
-  }
-  .more-icon {
-    color: hsla(0,0%,100%,.65)
-  }
-  .el-submenu {
-      .el-submenu__icon-arrow {
-        display: none;
-      }
-    }
-}
-.el-top-mode.el-light-navTheme {
-    .element-pro-layout-logo {
-      box-shadow: none;
-    }
-}
-.el-top-mode.el-light-navTheme {
-  .element-pro-layout-menu-horizontal {
-    .el-submenu__title {
-      color: rgba(0, 0, 0, 0.65) !important;
-    }
-    .el-submenu {
-      .el-submenu__icon-arrow {
-        display: none;
-      }
-    }
   }
 }
-.el-light-navTheme.el-top-mode {
-  .el-menu--horizontal>.el-submenu .el-submenu__title {
-    height: 64px;
-    line-height: 64px;
-  }
-}
+
 .element-pro-layout-header {
   display: flex;
   justify-content: flex-start;
