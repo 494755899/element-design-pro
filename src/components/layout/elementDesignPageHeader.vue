@@ -23,7 +23,7 @@
     margin-top: 64px;
   }
 }
-.el-content-contentWidth-Fixed {
+.el-content-contentWidth-Fixed.el-top-mode {
   .element-design-pro-pageHeader-wrap {
     width: 1200px;
     margin: 0 auto;

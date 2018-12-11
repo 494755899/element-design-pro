@@ -1,12 +1,12 @@
 export default [
   {
-    name: '分类',
+    name: '表格',
     id: '1',
     icon: 'el-icon-date',
     children: [
       {
-        name: '产品分类',
-        path: '/productClass',
+        name: '基础表格',
+        path: '/Form_baseForm',
         id: '1-1'
       },
       {
@@ -15,7 +15,7 @@ export default [
         id: '1-2'
       },
       {
-        name: '返回顶部试验',
+        name: '返回顶部试验fds',
         id: '10',
         children: [
           {

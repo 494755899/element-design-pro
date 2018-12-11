@@ -37,6 +37,16 @@
 </template>
 
 <style lang="less">
+.el-top-mode {
+  h1 {
+    font-size: 16px;
+  }
+}
+.el-dark-navTheme {
+  h1 {
+    color: #ffffff;
+  }
+}
 .el-top-mode.el-dark-navTheme {
   .element-pro-layout-header {
     background: #001529;
@@ -45,13 +55,6 @@
 .el-slide-mode.el-dark-navTheme {
   .element-pro-layout-logo {
     background: #002140;
-    h1 {
-      color: #ffffff;
-    }
-  }
-}
-.el-top-mode.el-dark-navTheme {
-  .element-pro-layout-logo {
     h1 {
       color: #ffffff;
     }

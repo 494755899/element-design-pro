@@ -41,10 +41,14 @@
     h1 {
       display: inline-block;
       vertical-align: middle;
-      font-size: 20px;
       margin: 0 0 0 12px;
       font-family: Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;
       font-weight: 600;
+    }
+  }
+  .el-slide-mode {
+    h1 {
+      font-size: 20px;
     }
   }
   // 这里是三种模式（slide暗模式， slide暗收起模式， top暗模式的菜单选项模式）
