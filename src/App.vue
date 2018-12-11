@@ -10,21 +10,24 @@
       {'el-header-fixHeader el-header-fixHeader-nocollapse': fixHeader && isCollapse}
     ]"
   >
-    <el-aside v-show="layout === 'slide'">
+    <el-aside v-if="layout === 'slide'">
       <element-design-menu :isCollapse="isCollapse"/>
     </el-aside>
-    <el-container>
-      <el-header height="64px">
-        <element-design-header :isCollapse="isCollapse" @menu-trigger="isCollapse = !isCollapse"/>
-      </el-header>
+    <el-container class="element-design-pro-transition-wrapper-fix">
+      <transition name="el-fade-in-linear">
+        <el-header height="64px" v-show="showHeader">
+          <element-design-header :isCollapse="isCollapse" @menu-trigger="isCollapse = !isCollapse"/>
+        </el-header>
+      </transition>
       <el-main>
         <element-design-page-header ref='pageHeader'/>
-        <div class="element-design-pro-page-wrapper-content" ref="pageContent">
+        <div class="element-design-pro-page-wrapper-content" id="pageContent" ref="pageContent">
          <router-view/>
         </div>
       </el-main>
     </el-container>
   </el-container>
+  <element-design-back-to-top/>
   <element-design-setting/>
 </div>
 </template>
@@ -65,8 +68,12 @@
     padding-left: 64px;
     transition: all .3s ease-in-out;
   }
+  .element-design-pro-transition-wrapper-fix {
+    flex-direction: column
+  }
   .el-header {
     padding: 0;
+    width: 100%;
   }
   .el-header-fixHeader {
     .el-header {
@@ -104,6 +111,7 @@
     padding: 0;
   }
   .element-design-pro-page-wrapper-content {
+    background: #ffff;
     overflow-y: auto;
     margin: 24px 24px 0;
   }
@@ -113,6 +121,7 @@
 <script>
 import _ from 'lodash'
 import { mapState } from 'vuex'
+import ElementDesignBackToTop from '@/components/layout/elementDesignBackToTop'
 import ElementDesignHeader from '@/components/layout/elementDesignHeader'
 import ElementDesignMenu from '@/components/layout/elementDesignMenu'
 import ElementDesignPageHeader from '@/components/layout/elementDesignPageHeader'
@@ -122,41 +131,25 @@ export default {
   data () {
     return {
       isCollapse: false,
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }]
+      showHeader: true
     }
   },
   components: {
     ElementDesignHeader,
     ElementDesignMenu,
     ElementDesignPageHeader,
-    ElementDesignSetting
+    ElementDesignSetting,
+    ElementDesignBackToTop
   },
   computed: {
     blindnessTheme () {
       return this.blindness ? { filter: 'invert(80%)' } : {}
     },
-    ...mapState(['layout', 'navTheme', 'fixSiderbar', 'fixHeader', 'onlyScreen', 'blindness'])
+    ...mapState(['layout', 'navTheme', 'fixSiderbar', 'fixHeader', 'hideHeader', 'onlyScreen', 'blindness'])
   },
   watch: {
     onlyScreen: {
       handler (value) {
-        console.log(value)
         if (value) {
           this.$nextTick(() => {
             const headerHeight = 64
@@ -176,7 +169,38 @@ export default {
         }
       },
       immediate: true
+    },
+    hideHeader: {
+      handler (value) {
+        if (value) {
+          this.hasEventListenerScroll = true
+          this.$nextTick(() => {
+            this.top = 0
+            window.addEventListener('scroll', this.hideHeaderHandler)
+          })
+        } else {
+          this.$nextTick(() => {
+            if (this.hasEventListenerScroll) {
+              window.removeEventListener('scroll', this.hideHeaderHandler)
+            }
+          })
+        }
+      },
+      immediate: true
     }
+  },
+  methods: {
+    hideHeaderHandler: _.throttle(function () {
+      console.log(document.documentElement.scrollTop)
+      const content = document.documentElement || document.body
+      const scrolltop = content.scrollTop
+      if (scrolltop > this.top && scrolltop > 200) {
+        this.showHeader = false
+      } else {
+        this.showHeader = true
+      }
+      this.top = scrolltop
+    }, 200)
   }
 }
 </script>

@@ -12,7 +12,14 @@ Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(VueRouter)
 
-const router = new VueRouter({})
+const router = new VueRouter({
+  routes: [
+    {
+      path: '/productClass',
+      component: () => import('./pages/productClass.vue')
+    }
+  ]
+})
 new Vue({
   store,
   router,

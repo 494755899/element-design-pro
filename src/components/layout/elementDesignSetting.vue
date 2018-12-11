@@ -102,7 +102,7 @@
           >
           </el-switch>
         </div>
-        <div>
+        <!-- <div>
           <span>回到顶部</span>
           <el-switch
            :width='35'
@@ -110,7 +110,7 @@
             v-model="checkboxBackToTop"
           >
           </el-switch>
-        </div>
+        </div> -->
       </div>
       <div class="element-divider-horizontal"></div>
       <div>
