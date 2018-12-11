@@ -4,7 +4,7 @@
       popper-class="setting-popper"
       placement="right"
       width="300"
-      trigger="hover">
+      trigger="click">
       <div>
         <!-- 顶部主题设置 -->
         <div class="set-navgiation">
@@ -55,7 +55,7 @@
       <div class="setting-another">
         <div>
           <span>内容区域宽度</span>
-          <el-select disabled @change="(value) => ChangeSettingMode('contentWidth', value)" class="contentWidth-select" size='mini' v-model="selectContentWidth" placeholder="请选择">
+          <el-select  @change="(value) => ChangeSettingMode('contentWidth', value)" class="contentWidth-select" size='mini' v-model="selectContentWidth" placeholder="请选择">
             <el-option
               v-for="item in contentWidthOp"
               :key="item.value"

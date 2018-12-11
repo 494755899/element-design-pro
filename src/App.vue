@@ -7,7 +7,8 @@
       {'el-aside-fixSiderbar-Fixed el-container-fixSiderbar-Fixed-collapse': fixSiderbar && !isCollapse},
       {'el-aside-fixSiderbar-Fixed el-container-fixSiderbar-Fixed-nocollapse' : fixSiderbar && isCollapse},
       {'el-header-fixHeader el-header-fixHeader-collapse': fixHeader && !isCollapse},
-      {'el-header-fixHeader el-header-fixHeader-nocollapse': fixHeader && isCollapse}
+      {'el-header-fixHeader el-header-fixHeader-nocollapse': fixHeader && isCollapse},
+      contentWidth === 'Fluid' ? 'el-content-contentWidth-Fluid' : 'el-content-contentWidth-Fixed'
     ]"
   >
     <el-aside v-if="layout === 'slide'">
@@ -115,6 +116,13 @@
     overflow-y: auto;
     margin: 24px 24px 0;
   }
+  .el-content-contentWidth-Fixed.el-top-mode {
+    .element-design-pro-page-wrapper-content {
+        width: 1200px;
+        margin: 24px auto;
+    }
+  }
+
 }
 </style>
 
@@ -145,7 +153,7 @@ export default {
     blindnessTheme () {
       return this.blindness ? { filter: 'invert(80%)' } : {}
     },
-    ...mapState(['layout', 'navTheme', 'fixSiderbar', 'fixHeader', 'hideHeader', 'onlyScreen', 'blindness'])
+    ...mapState(['layout', 'navTheme', 'fixSiderbar', 'fixHeader', 'contentWidth', 'hideHeader', 'onlyScreen', 'blindness'])
   },
   watch: {
     onlyScreen: {
