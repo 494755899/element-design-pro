@@ -40,7 +40,27 @@
     background: #001529;
   }
 }
-
+.el-slide-mode.el-dark-navTheme {
+  .element-pro-layout-logo {
+    background: #002140;
+    h1 {
+      color: #ffffff;
+    }
+  }
+}
+.el-top-mode.el-dark-navTheme {
+  .element-pro-layout-logo {
+    h1 {
+      color: #ffffff;
+    }
+  }
+}
+.el-slide-mode.el-light-navTheme {
+  .element-pro-layout-logo {
+    background: #fff;
+    box-shadow: 1px 1px 0 0 #e8e8e8;
+  }
+}
 .element-pro-layout-header {
   display: flex;
   justify-content: flex-start;
