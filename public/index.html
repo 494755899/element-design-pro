@@ -6,42 +6,128 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <style>
-      /* 明色系样式 */
-      .el-menu-light-navTheme h1 {
+      /* 明色系slide模式头部h1样式文字 */
+      .el-light-navTheme.el-slide-mode h1 {
         color: #1890ff;
       }
-      .el-menu-light--vertical h1 {
+      /* 明色系top模式头部h1样式文字 */
+      .el-light-navTheme.el-top-mode h1 {
         color: #1890ff;
       }
-      .el-menu-light-navTheme .el-submenu .el-menu-item.is-active {
-        color: #1890ff !important;
+      /* -------------------明色系slide模式collapse展开的模式------------------------ */
+      /* 选中item选项高亮展示的样式 */
+      .el-light-navTheme.el-slide-mode .el-menu-item.is-active {
+        color: #1890ff;
         background: #e8f4ff;
         border-right: 2px solid #1890ff;
       }
-      .el-menu-light-navTheme .el-submenu .el-menu-item.is-active:hover {
-        background: #e8f4ff;
+      /* 选中每层item选项对应的高亮展示的样式 */
+      .el-light-navTheme.el-slide-mode .el-submenu.is-active > .el-submenu__title{
+        color: #1890ff;
       }
-      .el-menu-light-navTheme .el-submenu .el-menu-item:hover {
+      /* 选中每层item选项对应的icon高亮展示的样式 */
+      .el-light-navTheme.el-slide-mode .el-submenu.is-active > .el-submenu__title i{
+        color: #1890ff;
+      }
+      /* 对每个外层item和内层item在hover的时候设置文字和图标高亮 */
+      .el-light-navTheme.el-slide-mode .el-submenu__title:hover {
         background: #ffffff;
+        color: #1890ff;
+      }
+      .el-light-navTheme.el-slide-mode .el-submenu__title:hover i{
+        color: #1890ff;
+      }
+      .el-light-navTheme.el-slide-mode .el-menu-item:hover {
+        background: #ffffff;
+        color: #1890ff;
+      }
+
+      /* -------------------明色系slide与collapse收缩起来的模式------------------------ */
+      /* 选中item选项高亮展示的样式 */
+      .el-menu-light--vertical .el-menu-item.is-active {
+        color: #1890ff;
+        background: #e8f4ff;
+        border-right: 2px solid #1890ff;
+      }
+      /* 选中每层item选项对应的高亮展示的样式 */
+      .el-menu-light--vertical .el-submenu.is-active > .el-submenu__title{
+        color: #1890ff;
+      }
+      /* 选中每层item选项对应的icon高亮展示的样式 */
+      .el-menu-light--vertical .el-submenu.is-active > .el-submenu__title i{
+        color: #1890ff;
+      }
+      /* 对每个外层item和内层item在hover的时候设置文字和图标高亮 */
+      .el-menu-light--vertical .el-submenu__title:hover {
+        background: #ffffff;
+        color: #1890ff;
+      }
+      .el-menu-light--vertical .el-submenu__title:hover i{
+        color: #1890ff;
+      }
+      .el-menu-light--vertical .el-menu-item:hover {
+        background: #ffffff;
+        color: #1890ff;
+      }
+      /* -------------------暗色系slide模式collapse展开的模式------------------------ */
+      /* 选中item选项高亮展示的样式 */
+      .el-dark-navTheme.el-slide-mode .el-menu-item.is-active {
+        background: #1890ff !important;
+      }
+      /* -------------------暗色系slide与collapse收缩起来的模式------------------------ */
+      /* 选中item选项高亮展示的样式 */
+      .el-menu-dark--vertical .el-menu-item.is-active {
+        background: #1890ff !important;
+      }
+
+      /* -------------------明色系top模式中菜单总项------------------------ */
+      /* 选中菜单总项文字和图标高亮展示的样式 */
+      .el-light-navTheme.el-top-mode .el-submenu.is-active > .el-submenu__title .title{
+        color: #1890ff;
+      }
+      .el-light-navTheme.el-top-mode .el-submenu.is-active > .el-submenu__title  i{
+        color: #1890ff;
+      }
+      /* hover菜单总项底部线的样式 */
+      .el-light-navTheme.el-top-mode .el-submenu__title:hover {
+        border-bottom: 2px solid #1890ff !important;
+      }
+      /* hover菜单总项文字和图标高亮展示的样式 */
+      .el-light-navTheme.el-top-mode .el-submenu__title:hover .title{
+        color: #1890ff;
+      }
+      .el-light-navTheme.el-top-mode .el-submenu__title:hover i{
+        color: #1890ff;
+      }
+      /* -------------------明色系top模式中下拉的每个item项------------------------ */
+      /* 选中item选项高亮展示的样式 */
+      .el-menu-light--horizontal .el-menu-item.is-active {
+        color: #1890ff !important;
+        background: #e8f4ff !important;
+        border-right: 2px solid #1890ff;
+      }
+      /* 选中item选项对应的容器块文字和图标高亮展示的样式 */
+      .el-menu-light--horizontal .el-submenu.is-active > .el-submenu__title .title{
+        color: #1890ff;
+      }
+      .el-menu-light--horizontal .el-submenu.is-active > .el-submenu__title i{
+        color: #1890ff;
+      }
+      /* hover中item选项和对应容器块选项的文字和图标高亮展示样式 */
+      .el-menu-light--horizontal .el-menu-item:hover {
+        background: #e8f4ff !important;
         color: #1890ff !important;
       }
-      .el-menu-light-navTheme .el-submenu__title:hover {
-          color: #1890ff;
-          background-color: #ffffff;
+      .el-menu-light--horizontal .el-submenu__title:hover .title {
+        color: #1890ff;
       }
-      .el-menu-light-navTheme .el-submenu__title:hover i{
-          color: #1890ff;
+      .el-menu-light--horizontal .el-submenu__title:hover i {
+        color: #1890ff;
       }
-      .el-menu-dark-navTheme .el-submenu .el-menu-item.is-active {
-        color: #fff !important;
+      /* -------------------暗色系top模式中下拉的每个item项------------------------ */
+      /* 选中item选项样式 */
+      .el-menu-dark--horizontal .el-menu-item.is-active {
         background: #1890ff !important;
-      }
-      .el-menu--vertical.el-menu-dark--vertical .el-menu-item.is-active {
-        color: #fff !important;
-        background: #1890ff !important;
-      }
-      .el-menu--vertical.el-menu-light--vertical .el-menu-item.is-active {
-        border-right: 2px solid #1890ff;
       }
     </style>
     <title>element-design-pro</title>
