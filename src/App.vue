@@ -112,6 +112,7 @@
     padding: 0;
   }
   .element-design-pro-page-wrapper-content {
+    padding: 24px;
     background: #ffff;
     overflow-y: auto;
     margin: 24px 24px 0;
@@ -162,8 +163,8 @@ export default {
           this.$nextTick(() => {
             const headerHeight = 64
             const pageHeaderHeight = this.$refs.pageHeader.$el.offsetHeight
-            const pageContentMargin = 48
-            const totalHeight = headerHeight + pageHeaderHeight + pageContentMargin
+            const pageContentMarginPadding = 48 * 2
+            const totalHeight = headerHeight + pageHeaderHeight + pageContentMarginPadding
             this.$refs.pageContent.style.height = window.innerHeight - totalHeight + 'px'
             window.onresize = _.debounce(() => {
               // Bus.$emit('resize')

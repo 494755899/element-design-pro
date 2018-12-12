@@ -1,5 +1,16 @@
 <template>
   <div>
+    <!-- <el-popover
+      placement="top"
+      width="160"
+      v-model="visible2">
+      <p>这是一段内容这是一段内容确定删除吗？</p>
+      <div style="text-align: right; margin: 0">
+        <el-button size="mini" type="text" @click="visible2 = false">取消</el-button>
+        <el-button type="primary" size="mini" @click="visible2 = false">确定</el-button>
+      </div>
+      <el-button slot="reference">删除</el-button>
+    </el-popover> -->
     <el-form :inline="true" :model="formInline" class="demo-form-inline">
       <el-form-item label="审批人">
         <el-input v-model="formInline.user" placeholder="审批人"></el-input>
@@ -42,8 +53,29 @@
         prop="address"
         label="地址">
       </el-table-column>
+      <el-table-column width="180" label="操作">
+        <template slot-scope="scope">
+          <el-button
+            size="mini"
+            @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-popover
+            placement="top-start"
+            title="标题"
+            width="200"
+            trigger="hover"
+            >
+            <p>这是一段内容这是一段内容确定删除吗？</p>
+            <div style="text-align: right; margin: 0">
+              <el-button type="primary" size="mini">确定</el-button>
+            </div>
+            <span class="reference-button" slot="reference">
+              <el-button size="mini" type="danger" >删除</el-button>
+            </span>
+          </el-popover>
+        </template>
+      </el-table-column>
     </el-table>
-      <el-pagination
+    <el-pagination
       class="pagination"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
@@ -72,7 +104,9 @@ export default {
         date1: '',
         date2: ''
       },
+      tableVisible: {},
       tableData: Array(10).fill({
+        flag: false,
         date: '2016-05-02',
         name: '王小虎',
         address: '上海市普陀区金沙江路 1518 弄'
@@ -81,6 +115,10 @@ export default {
     }
   },
   methods: {
+    add (index) {
+      console.log(this.tableData)
+      this.tableData[index].flag = !this.tableData[index].flag
+    },
     onSubmit () {
       console.log('submit!')
     },
@@ -89,7 +127,8 @@ export default {
     },
     handleCurrentChange (val) {
       console.log(`当前页: ${val}`)
-    }
+    },
+    handleEdit () {}
   }
 }
 </script>
@@ -97,5 +136,8 @@ export default {
 <style lang="less" scoped>
 .line {
   text-align: center;
+}
+.reference-button {
+  margin: 0 10px;
 }
 </style>

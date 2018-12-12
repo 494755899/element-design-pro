@@ -1,17 +1,17 @@
 export default [
   {
-    name: '表格',
+    name: '表格筛选',
     id: '1',
     icon: 'el-icon-date',
     children: [
       {
-        name: '基础表格',
+        name: '基础表格筛选',
         path: '/Form_baseForm',
         id: '1-1'
       },
       {
-        name: '风格分类',
-        path: '/typeClass',
+        name: '复杂表格筛选',
+        path: '/Form_complexForm',
         id: '1-2'
       },
       {
