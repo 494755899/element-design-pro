@@ -33,6 +33,7 @@
     padding-left: 15px;
     transition: all .3s;
     overflow: hidden;
+    z-index: 2;
     img {
       display: inline-block;
       vertical-align: middle;

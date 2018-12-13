@@ -1,16 +1,5 @@
 <template>
   <div>
-    <!-- <el-popover
-      placement="top"
-      width="160"
-      v-model="visible2">
-      <p>这是一段内容这是一段内容确定删除吗？</p>
-      <div style="text-align: right; margin: 0">
-        <el-button size="mini" type="text" @click="visible2 = false">取消</el-button>
-        <el-button type="primary" size="mini" @click="visible2 = false">确定</el-button>
-      </div>
-      <el-button slot="reference">删除</el-button>
-    </el-popover> -->
     <el-form :inline="true" :model="formInline" class="demo-form-inline">
       <el-form-item label="审批人">
         <el-input v-model="formInline.user" placeholder="审批人"></el-input>
@@ -52,27 +41,6 @@
       <el-table-column
         prop="address"
         label="地址">
-      </el-table-column>
-      <el-table-column width="180" label="操作">
-        <template slot-scope="scope">
-          <el-button
-            size="mini"
-            @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-          <el-popover
-            placement="top-start"
-            title="标题"
-            width="200"
-            trigger="hover"
-            >
-            <p>这是一段内容这是一段内容确定删除吗？</p>
-            <div style="text-align: right; margin: 0">
-              <el-button type="primary" size="mini">确定</el-button>
-            </div>
-            <span class="reference-button" slot="reference">
-              <el-button size="mini" type="danger" >删除</el-button>
-            </span>
-          </el-popover>
-        </template>
       </el-table-column>
     </el-table>
     <el-pagination

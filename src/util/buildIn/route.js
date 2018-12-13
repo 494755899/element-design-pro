@@ -1,1 +1,1 @@
-export default [{"path":"/Form_baseForm","name":"Form_baseForm","children":[]},{"path":"/Form_complexForm","name":"Form_complexForm","children":[]}]
+export default [{"path":"/Form_baseForm","name":"Form_baseForm","children":[]},{"path":"/Form_complexForm","name":"Form_complexForm","children":[]},{"path":"/Form_editForm","name":"Form_editForm","children":[]}]

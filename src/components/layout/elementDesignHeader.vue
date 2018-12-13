@@ -24,7 +24,7 @@
           router
         >
           <element-design-menu-item v-for="(item) in menu" :item="item" flag="horizontal" :key="item.id"/>
-          <el-submenu :popper-class="this.navTheme === 'dark' ? 'el-menu-dark--horizontal' : 'el-menu-light--horizontal'" index="another-ziksang-shuai">
+          <el-submenu v-if="menu.length > 5" :popper-class="this.navTheme === 'dark' ? 'el-menu-dark--horizontal' : 'el-menu-light--horizontal'" index="another-ziksang-shuai">
               <template slot="title">
                 <i class="el-icon-more"></i>
               </template>
@@ -37,6 +37,7 @@
 </template>
 
 <style lang="less">
+
 .el-top-mode {
   h1 {
     font-size: 16px;
@@ -96,6 +97,9 @@
   display: flex;
 }
 .el-content-contentWidth-Fixed.el-top-mode {
+  .element-pro-layout-logo {
+    padding-left: 0;
+  }
   .element-pro-layout-header-wrap {
     width: 1200px;
     margin: 0 auto;

@@ -5,9 +5,10 @@
   <div class="element-design-pro-pageHeader-wrap">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/">活动管理</a></el-breadcrumb-item>
-      <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-      <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+      <template v-for="(breadcrumb, index) in breadcrumbs">
+          <el-breadcrumb-item :to="{ path: breadcrumb.href }" v-if="breadcrumb.path" :key="index">{{ breadcrumb.name }}</el-breadcrumb-item>
+          <el-breadcrumb-item :key="index" v-else>{{ breadcrumb.name }}</el-breadcrumb-item>
+      </template>
     </el-breadcrumb>
   </div>
 </div>
@@ -32,10 +33,45 @@
 </style>
 
 <script>
+/* eslint-disable */
+import Menu from '@/config/menu'
 import { mapState } from 'vuex'
 export default {
   computed: {
-    ...mapState(['fixHeader'])
+    ...mapState(['fixHeader']),
+    breadcrumbs () {
+      let path = this.$route.path
+      return this.getPath(path, Menu)
+    }
+  },
+  methods: {
+    getPath (id, catalog) {
+      let path = []
+      let flag = false
+      try {
+        function getNodePath(node) {
+          path.push(node)
+          if(node.path === id) {
+            flag = true
+            throw('got it')
+          }
+          var child = node.children || []
+          if (child.length > 0) {
+            for(let i = 0; i < child.length; i++) {
+              getNodePath(child[i])
+            }
+            path.pop()
+          } else {
+            path.pop()
+          }
+        }
+        for(let i=0; i<catalog.length; i++) {
+          if (flag) break
+          getNodePath(catalog[i])
+        }
+      } catch (error) {}
+      return path
+    }
   }
 }
 </script>
