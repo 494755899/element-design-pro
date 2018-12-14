@@ -47,14 +47,24 @@
 </template>
 
 <script>
+import Occupy from '@/directive/Occupy'
 export default {
   created () {
     setTimeout(() => {
       this.loading = false
+      this.occupy = true
+      this.name = 10
     }, 1000)
   },
   data () {
     return {
+      wrapConfig: {
+        width: '100px',
+        height: '100px',
+        background: 'red'
+      },
+      name: '',
+      occupy: false,
       loading: true,
       formInline: {
         user: '',
@@ -69,6 +79,9 @@ export default {
       }),
       currentPage4: 4
     }
+  },
+  directives: {
+    Occupy
   },
   methods: {
     onSubmit () {
@@ -85,7 +98,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.line {
-  text-align: center;
+.occupy {
+  width: 300px;
+  height: 200px;
+  position: relative;
 }
 </style>

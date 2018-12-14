@@ -3,21 +3,48 @@
   class='element-design-pro-pageHeader'
   >
   <div class="element-design-pro-pageHeader-wrap">
-    <el-breadcrumb separator="/">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <template v-for="(breadcrumb, index) in breadcrumbs">
-          <el-breadcrumb-item :to="{ path: breadcrumb.href }" v-if="breadcrumb.path" :key="index">{{ breadcrumb.name }}</el-breadcrumb-item>
-          <el-breadcrumb-item :key="index" v-else>{{ breadcrumb.name }}</el-breadcrumb-item>
-      </template>
-    </el-breadcrumb>
+    <div>
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+        <template v-for="(breadcrumb, index) in breadcrumbs">
+            <el-breadcrumb-item :to="{ path: breadcrumb.href }" v-if="breadcrumb.path" :key="index">{{ breadcrumb.name }}</el-breadcrumb-item>
+            <el-breadcrumb-item :key="index" v-else>{{ breadcrumb.name }}</el-breadcrumb-item>
+        </template>
+      </el-breadcrumb>
+    </div>
+    <el-tag
+      @click.native="tagHandler(tag.path)"
+      @close="tagClose(tag.path, index)"
+      class="element-design-pro-tag"
+      size="small"
+      v-for="(tag, index) in tags"
+      :key="tag.name"
+      :type="tag.path === activeTag ? '' : 'info'"
+      closable>
+      {{tag.name}}
+    </el-tag>
   </div>
 </div>
 </template>
 <style lang="less">
 .element-design-pro-pageHeader {
+  display: flex;
+  height: 50px;
+  box-sizing: border-box;
   background: #fff;
-  padding: 16px 24px;
+  padding: 12px 24px;
   border-bottom: 1px solid #e8e8e8;
+  .element-design-pro-pageHeader-wrap {
+    display: flex;
+    align-items: center;
+    > div {
+      margin-right: 15px;
+    }
+  }
+  .element-design-pro-tag {
+    cursor: pointer;
+    margin-right: 20px;
+  }
 }
 .el-header-fixHeader {
   .element-design-pro-pageHeader {
@@ -37,6 +64,12 @@
 import Menu from '@/config/menu'
 import { mapState } from 'vuex'
 export default {
+  data () {
+    return  {
+      tags: [],
+      activeTag: ''
+    }
+  },
   computed: {
     ...mapState(['fixHeader']),
     breadcrumbs () {
@@ -45,13 +78,30 @@ export default {
     }
   },
   methods: {
+    tagHandler (path) {
+      this.$router.push(path)
+    },
+    tagClose(path, index) {
+      this.tags.splice(index, 1)
+      if (this.tags.length === 0) {
+        this.$router.push('/')
+        return
+      }
+      this.$router.push(this.tags[this.tags.length -1].path)
+    },
     getPath (id, catalog) {
+      var that = this
       let path = []
       let flag = false
       try {
         function getNodePath(node) {
           path.push(node)
           if(node.path === id) {
+            that.activeTag = node.path
+            const flag = that.tags.every(item => item.path !== node.path)
+              if (flag) {
+                that.tags.push({name: node.name, path: node.path})
+              }
             flag = true
             throw('got it')
           }
