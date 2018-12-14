@@ -6937,6 +6937,11 @@ schema-utils@^1.0.0:
     ajv-errors "^1.0.0"
     ajv-keywords "^3.1.0"
 
+screenfull@^3.3.3:
+  version "3.3.3"
+  resolved "http://registry.npm.taobao.org/screenfull/download/screenfull-3.3.3.tgz#8cf7e706aceac2e75131aadcb81b622acfe11d39"
+  integrity sha1-jPfnBqzqwudRMarcuBtiKs/hHTk=
+
 select-hose@^2.0.0:
   version "2.0.0"
   resolved "http://r.cnpmjs.org/select-hose/download/select-hose-2.0.0.tgz#625d8658f865af43ec962bfc376a37359a4994ca"
