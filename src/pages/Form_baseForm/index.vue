@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <element-container>
+    <template slot="pageHeader">
+      <el-progress type="circle" :percentage="100" status="text">Done</el-progress>
+    </template>
     <el-form :inline="true" :model="formInline" class="demo-form-inline">
       <el-form-item label="审批人">
         <el-input v-model="formInline.user" placeholder="审批人"></el-input>
@@ -43,7 +46,7 @@
         label="地址">
       </el-table-column>
     </el-table>
-  </div>
+  </element-container>
 </template>
 
 <script>

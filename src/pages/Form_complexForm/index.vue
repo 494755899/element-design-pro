@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <element-container>
     <el-form :inline="true" :model="formInline" class="demo-form-inline">
       <el-form-item label="审批人">
         <el-input v-model="formInline.user" placeholder="审批人"></el-input>
@@ -53,7 +53,7 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="100">
     </el-pagination>
-  </div>
+  </element-container>
 </template>
 
 <script>

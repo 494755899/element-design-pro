@@ -20,11 +20,19 @@ if (localStorage.setting) {
 console.log(localStorageSetting)
 export default new Vuex.Store({
   state: {
-    ...localStorageSetting
+    ...localStorageSetting,
+    innerNavgation: []
   },
   mutations: {
     changeMode (state, { modeType, mode }) {
       state[modeType] = mode
+    },
+    addInnerNavgation (state, { name, path }) {
+      console.log('add')
+      state.innerNavgation.push({ name, path })
+    },
+    removeInnerNavgation (state, index) {
+      state.innerNavgation.splice(index, 1)
     }
   },
   actions: {

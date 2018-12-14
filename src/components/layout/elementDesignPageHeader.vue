@@ -17,22 +17,23 @@
       @close="tagClose(tag.path, index)"
       class="element-design-pro-tag"
       size="small"
-      v-for="(tag, index) in tags"
+      v-for="(tag, index) in innerNavgation"
       :key="tag.name"
       :type="tag.path === activeTag ? '' : 'info'"
       closable>
       {{tag.name}}
     </el-tag>
   </div>
+  <slot></slot>
 </div>
 </template>
 <style lang="less">
 .element-design-pro-pageHeader {
   display: flex;
-  height: 50px;
   box-sizing: border-box;
   background: #fff;
   padding: 12px 24px;
+  flex-direction: column;
   border-bottom: 1px solid #e8e8e8;
   .element-design-pro-pageHeader-wrap {
     display: flex;
@@ -71,7 +72,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['fixHeader']),
+    ...mapState(['fixHeader', 'innerNavgation']),
     breadcrumbs () {
       let path = this.$route.path
       return this.getPath(path, Menu)
@@ -82,12 +83,12 @@ export default {
       this.$router.push(path)
     },
     tagClose(path, index) {
-      this.tags.splice(index, 1)
-      if (this.tags.length === 0) {
+      this.$store.commit('removeInnerNavgation', index)
+      if (this.innerNavgation.length === 0) {
         this.$router.push('/')
         return
       }
-      this.$router.push(this.tags[this.tags.length -1].path)
+      this.$router.push(this.innerNavgation[this.innerNavgation.length -1].path)
     },
     getPath (id, catalog) {
       var that = this
@@ -97,11 +98,12 @@ export default {
         function getNodePath(node) {
           path.push(node)
           if(node.path === id) {
+            console.log(1)
             that.activeTag = node.path
-            const flag = that.tags.every(item => item.path !== node.path)
-              if (flag) {
-                that.tags.push({name: node.name, path: node.path})
-              }
+            const flag = that.innerNavgation.every(item => item.path !== node.path)
+            if (flag) {
+              that.$store.commit('addInnerNavgation', node)
+            }
             flag = true
             throw('got it')
           }
