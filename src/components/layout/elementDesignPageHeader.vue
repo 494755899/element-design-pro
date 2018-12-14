@@ -1,30 +1,30 @@
 <template>
-<div
-  class='element-design-pro-pageHeader'
-  >
-  <div class="element-design-pro-pageHeader-wrap">
-    <div>
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-        <template v-for="(breadcrumb, index) in breadcrumbs">
-            <el-breadcrumb-item :to="{ path: breadcrumb.href }" v-if="breadcrumb.path" :key="index">{{ breadcrumb.name }}</el-breadcrumb-item>
-            <el-breadcrumb-item :key="index" v-else>{{ breadcrumb.name }}</el-breadcrumb-item>
-        </template>
-      </el-breadcrumb>
+<div class='element-design-pro-pageHeader'>
+  <div class="element-design-pro-pageHeader-inner">
+    <div class="element-design-pro-pageHeader-wrap">
+      <div>
+        <el-breadcrumb separator="/">
+          <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+          <template v-for="(breadcrumb, index) in breadcrumbs">
+              <el-breadcrumb-item :to="{ path: breadcrumb.href }" v-if="breadcrumb.path" :key="index">{{ breadcrumb.name }}</el-breadcrumb-item>
+              <el-breadcrumb-item :key="index" v-else>{{ breadcrumb.name }}</el-breadcrumb-item>
+          </template>
+        </el-breadcrumb>
+      </div>
+      <el-tag
+        @click.native="tagHandler(tag.path)"
+        @close="tagClose(tag.path, index)"
+        class="element-design-pro-tag"
+        size="small"
+        v-for="(tag, index) in innerNavgation"
+        :key="tag.name"
+        :type="tag.path === activeTag ? '' : 'info'"
+        closable>
+        {{tag.name}}
+      </el-tag>
     </div>
-    <el-tag
-      @click.native="tagHandler(tag.path)"
-      @close="tagClose(tag.path, index)"
-      class="element-design-pro-tag"
-      size="small"
-      v-for="(tag, index) in innerNavgation"
-      :key="tag.name"
-      :type="tag.path === activeTag ? '' : 'info'"
-      closable>
-      {{tag.name}}
-    </el-tag>
+    <slot></slot>
   </div>
-  <slot></slot>
 </div>
 </template>
 <style lang="less">
@@ -53,7 +53,7 @@
   }
 }
 .el-content-contentWidth-Fixed.el-top-mode {
-  .element-design-pro-pageHeader-wrap {
+  .element-design-pro-pageHeader-inner {
     width: 1200px;
     margin: 0 auto;
   }

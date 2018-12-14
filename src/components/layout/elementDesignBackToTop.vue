@@ -60,35 +60,35 @@ export default {
         if (value) {
           this.$nextTick(() => {
             this.contentDom = document.getElementById('pageContent')
-            this.contentDom.addEventListener('scroll', this.handleScroll)
+            this.contentDom.addEventListener('scroll', this.DomhandleScroll)
           })
         } else {
-          this.contentDom = document.documentElement || document.body
-          window.addEventListener('scroll', this.handleScroll)
+          console.log('sssss')
+          this.$nextTick(() => {
+            this.contentDom = document.documentElement || document.body
+            window.addEventListener('scroll', this.WindowhandleScroll)
+          })
         }
       },
       immediate: true
     }
   },
-  mounted () {
-    // if (!this.backToTop) {
-    //   // this.contentDom = document.getElementById('content')
-
-    // }
-    // this.contentDom = document.documentElement || document.body
-    // window.addEventListener('scroll', this.handleScroll)
-  },
-  beforeDestroy () {
-    this.contentDom.removeEventListener('scroll', this.handleScroll)
-    if (this.interval) {
-      clearInterval(this.interval)
-    }
-  },
+  // beforeDestroy () {
+  //   this.contentDom.removeEventListener('scroll', this.handleScroll)
+  //   if (this.interval) {
+  //     clearInterval(this.interval)
+  //   }
+  // },
   methods: {
-    handleScroll: _.debounce(function () {
+    DomhandleScroll: _.debounce(function () {
       console.log(this)
       this.visible = this.contentDom.scrollTop > this.visibilityHeight
       console.log(this.contentDom.scrollTop)
+    }, 200),
+    WindowhandleScroll: _.debounce(function () {
+      console.log(this)
+      const srollTopDistance = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
+      this.visible = srollTopDistance > this.visibilityHeight
     }, 200),
     backToTopHandler () {
       if (this.isMoving) return

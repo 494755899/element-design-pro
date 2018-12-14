@@ -10,8 +10,37 @@
 </template>
 
 <script>
+import _ from 'lodash'
+import { mapState } from 'vuex'
 import ElementDesignPageHeader from '@/components/layout/elementDesignPageHeader'
 export default {
+  computed: {
+    ...mapState(['onlyScreen'])
+  },
+  watch: {
+    onlyScreen: {
+      handler (value) {
+        if (value) {
+          this.$nextTick(() => {
+            const headerHeight = 64
+            const pageHeaderHeight = this.$refs.pageHeader.$el.offsetHeight
+            const pageContentMarginPadding = 48
+            const totalHeight = headerHeight + pageHeaderHeight + pageContentMarginPadding
+            this.$refs.pageContent.style.height = window.innerHeight - totalHeight + 'px'
+            window.onresize = _.debounce(() => {
+              // Bus.$emit('resize')
+              this.$refs.pageContent.style.height = window.innerHeight - totalHeight + 'px'
+            }, 100)
+          })
+        } else {
+          this.$nextTick(() => {
+            this.$refs.pageContent.style.height = 'auto'
+          })
+        }
+      },
+      immediate: true
+    }
+  },
   components: {
     ElementDesignPageHeader
   }
