@@ -15,7 +15,6 @@
         @click.native="tagHandler(tag.path)"
         @close="tagClose(tag.path, index)"
         class="element-design-pro-tag"
-        size="small"
         v-for="(tag, index) in innerNavgation"
         :key="tag.name"
         :type="tag.path === activeTag ? '' : 'info'"

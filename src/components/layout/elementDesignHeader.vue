@@ -39,6 +39,9 @@
       <el-tooltip effect="dark" content="全屏" placement="bottom">
         <element-design-full-screen/>
       </el-tooltip>
+      <el-tooltip effect="dark" content="全局大小" placement="bottom">
+        <element-design-size-select/>
+      </el-tooltip>
       </div>
     </div>
   </div>
@@ -129,6 +132,7 @@
 import Menu from '@/config/menu'
 import ElementDesignMenuItem from './elementDesignMenuItem'
 import ElementDesignFullScreen from './elementDesignFullScreen'
+import ElementDesignSizeSelect from './elementDesignSizeSelect'
 import { mapState } from 'vuex'
 export default {
   name: 'element-design-header',
@@ -160,7 +164,8 @@ export default {
   },
   components: {
     ElementDesignMenuItem,
-    ElementDesignFullScreen
+    ElementDesignFullScreen,
+    ElementDesignSizeSelect
   }
 }
 </script>

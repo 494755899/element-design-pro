@@ -10,4 +10,12 @@ function deep (routes) {
   })
 }
 deep(routes)
+
+routes.unshift(
+  {
+    path: '/redirect/:path*',
+    component: () => import('@/components/layout/elementDesignRedirectPath.vue')
+  }
+)
+console.log(routes)
 export default routes

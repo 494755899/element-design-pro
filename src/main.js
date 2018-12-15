@@ -12,7 +12,17 @@ import App from './App.vue'
 import store from './store'
 InitGobal()
 Vue.config.productionTip = false
-Vue.use(ElementUI)
+const ClientWidth = document.body.clientWidth
+let size = ''
+if (ClientWidth <= 1200) {
+  size = 'mini'
+} else if (ClientWidth > 1200 && ClientWidth <= 1450) {
+  size = 'small'
+} else if (ClientWidth > 1450 && ClientWidth <= 1700) {
+  size = 'medium'
+}
+console.log(document.body.clientWidth)
+Vue.use(ElementUI, { size })
 Vue.use(VueRouter)
 
 const router = new VueRouter({
