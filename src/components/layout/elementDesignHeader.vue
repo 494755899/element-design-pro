@@ -25,6 +25,7 @@
             :default-active="defaultActive"
             router
           >
+            <el-menu-item v-show="false" index="/home"></el-menu-item>
             <element-design-menu-item v-for="(item) in menu" :item="item" flag="horizontal" :key="item.id"/>
             <el-submenu v-if="menu.length > 5" :popper-class="this.navTheme === 'dark' ? 'el-menu-dark--horizontal' : 'el-menu-light--horizontal'" index="another-ziksang-shuai">
                 <template slot="title">

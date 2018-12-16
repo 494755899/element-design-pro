@@ -33,6 +33,19 @@ export default new Vuex.Store({
     },
     removeInnerNavgation (state, index) {
       state.innerNavgation.splice(index, 1)
+    },
+    closeAnotherTag (state, path) {
+      const currentPath = []
+      state.innerNavgation.forEach(item => {
+        if (item === path) {
+          currentPath.push(item)
+        }
+      })
+      state.innerNavgation = currentPath
+    },
+    closeAllTag (state) {
+      state.innerNavgation = []
+      console.log(state.innerNavgation)
     }
   },
   actions: {

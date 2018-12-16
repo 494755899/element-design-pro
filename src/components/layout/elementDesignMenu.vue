@@ -15,6 +15,7 @@
           <h1>Design Pro</h1>
         </a>
       </div>
+      <el-menu-item v-show="false" index="/home"></el-menu-item>
       <element-design-menu-item v-for="item in menu" :item="item" :key="item.id"/>
     </el-menu>
   </div>
@@ -128,6 +129,10 @@ export default {
   },
   computed: {
     defaultActive () {
+      const path = this.$route.path
+      if (path === '/') {
+        return ''
+      }
       return this.$route.path
     },
     ...mapState(['navTheme'])

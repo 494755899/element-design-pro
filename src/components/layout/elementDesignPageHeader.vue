@@ -22,8 +22,17 @@
         {{tag.name}}
       </el-tag>
     </div>
-    <slot></slot>
+    <el-dropdown @command="dropdownTag">
+      <el-button type="primary">
+        标签选项<i class="el-icon-arrow-down el-icon--right"></i>
+      </el-button>
+      <el-dropdown-menu slot="dropdown">
+        <el-dropdown-item command="close-another" :disabled="innerNavgation.length === 1">关闭其它</el-dropdown-item>
+        <el-dropdown-item command="close-all">关闭所有</el-dropdown-item>
+      </el-dropdown-menu>
+    </el-dropdown>
   </div>
+  <slot></slot>
 </div>
 </template>
 <style lang="less">
@@ -50,6 +59,11 @@
   .element-design-pro-pageHeader {
     margin-top: 64px;
   }
+}
+.element-design-pro-pageHeader-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .el-content-contentWidth-Fixed.el-top-mode {
   .element-design-pro-pageHeader-inner {
@@ -78,8 +92,19 @@ export default {
     }
   },
   methods: {
+    dropdownTag (flag) {
+      if (flag === 'close-another') {
+        this.$store.commit('closeAnotherTag', this.activeTag)
+      } else {
+        this.$store.commit('closeAllTag')
+        this.no = true
+        this.$router.replace('/home')
+      }
+    },
     tagHandler (path) {
+      console.log('hander')
       this.$router.push(path)
+      this.no = false
     },
     tagClose(path, index) {
       this.$store.commit('removeInnerNavgation', index)
@@ -90,6 +115,10 @@ export default {
       this.$router.push(this.innerNavgation[this.innerNavgation.length -1].path)
     },
     getPath (id, catalog) {
+      if (this.no) {
+        return
+      }
+      console.log('--------')
       var that = this
       let path = []
       let flag = false
@@ -97,7 +126,7 @@ export default {
         function getNodePath(node) {
           path.push(node)
           if(node.path === id) {
-            console.log(1)
+            console.log('\\\\||||')
             that.activeTag = node.path
             const flag = that.innerNavgation.every(item => item.path !== node.path)
             if (flag) {
