@@ -15,11 +15,15 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import Bus from '@/util/buildIn/bus'
 import { mapState } from 'vuex'
 import ElementDesignPageHeader from '@/components/layout/elementDesignPageHeader'
 export default {
+  mounted () {
+    Bus.$on('resize', () => {
+      this.caculateHeight()
+    })
+  },
   props: {
     layout: {
       type: Boolean,
@@ -34,15 +38,7 @@ export default {
       handler (value) {
         if (value) {
           this.$nextTick(() => {
-            const headerHeight = 64
-            const pageHeaderHeight = this.$refs.pageHeader.$el.offsetHeight
-            const pageContentMarginPadding = 48
-            const totalHeight = headerHeight + pageHeaderHeight + pageContentMarginPadding
-            this.$refs.pageContent.style.height = window.innerHeight - totalHeight + 'px'
-            window.onresize = _.debounce(() => {
-              Bus.$emit('resize')
-              this.$refs.pageContent.style.height = window.innerHeight - totalHeight + 'px'
-            }, 100)
+            this.caculateHeight()
           })
         } else {
           this.$nextTick(() => {
@@ -55,6 +51,18 @@ export default {
   },
   components: {
     ElementDesignPageHeader
+  },
+  methods: {
+    caculateHeight () {
+      const headerHeight = 64
+      const pageHeaderHeight = this.$refs.pageHeader.$el.offsetHeight
+      const pageContentMarginPadding = 48
+      const totalHeight = headerHeight + pageHeaderHeight + pageContentMarginPadding
+      this.$refs.pageContent.style.height = window.innerHeight - totalHeight + 'px'
+    }
+  },
+  destroyed () {
+    Bus.$off('resize')
   }
 }
 </script>

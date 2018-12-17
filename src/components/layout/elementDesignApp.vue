@@ -17,15 +17,17 @@
     <el-container class="element-design-pro-transition-wrapper-fix">
       <transition name="el-fade-in-linear">
         <el-header height="64px" v-show="showHeader">
-          <element-design-header :isCollapse="isCollapse" @menu-trigger="isCollapse = !isCollapse"/>
+          <element-design-header ref="element-design-header" :isCollapse="isCollapse" @menu-trigger="isCollapse = !isCollapse"/>
         </el-header>
       </transition>
       <el-main>
-        <router-view/>
+        <div>
+          <router-view/>
+        </div>
       </el-main>
     </el-container>
   </el-container>
-  <element-design-back-to-top/>
+  <element-design-back-to-top v-show="showScroll"/>
   <element-design-setting/>
   <element-design-dialog/>
 </div>
@@ -114,6 +116,7 @@
 
 <script>
 import _ from 'lodash'
+import Bus from '@/util/buildIn/bus'
 import { mapState } from 'vuex'
 import ElementDesignBackToTop from '@/components/layout/elementDesignBackToTop'
 import ElementDesignHeader from '@/components/layout/elementDesignHeader'
@@ -122,10 +125,33 @@ import ElementDesignSetting from '@/components/layout/elementDesignSetting'
 import ElementDesignDialog from '@/components/layout/elementDesignDialog'
 export default {
   name: 'app',
+  created () {
+    window.onresize = _.debounce(() => {
+      Bus.$emit('resize')
+    }, 100)
+    // 滚动监听
+    window.onscroll = _.throttle(() => {
+      const srollTopDistance = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
+      if (this.hideHeader) {
+        if (srollTopDistance > 250 && srollTopDistance > this.preTop) {
+          this.showHeader = false
+        } else {
+          this.showHeader = true
+        }
+      }
+      if (srollTopDistance > 250 && srollTopDistance > this.preTop) {
+        this.showScroll = true
+      } else {
+        this.showScroll = false
+      }
+      this.preTop = srollTopDistance
+    }, 200)
+  },
   data () {
     return {
       isCollapse: false,
-      showHeader: true
+      showHeader: true,
+      showScroll: false
     }
   },
   components: {
@@ -140,38 +166,6 @@ export default {
       return this.blindness ? { filter: 'invert(80%)' } : {}
     },
     ...mapState(['layout', 'navTheme', 'fixSiderbar', 'fixHeader', 'contentWidth', 'hideHeader', 'blindness'])
-  },
-  watch: {
-    hideHeader: {
-      handler (value) {
-        if (value) {
-          this.hasEventListenerScroll = true
-          this.$nextTick(() => {
-            this.top = 0
-            window.addEventListener('scroll', this.hideHeaderHandler)
-          })
-        } else {
-          this.$nextTick(() => {
-            if (this.hasEventListenerScroll) {
-              window.removeEventListener('scroll', this.hideHeaderHandler)
-            }
-          })
-        }
-      },
-      immediate: true
-    }
-  },
-  methods: {
-    hideHeaderHandler: _.throttle(function () {
-      const content = document.documentElement || document.body
-      const scrolltop = content.scrollTop
-      if (scrolltop > this.top && scrolltop > 200) {
-        this.showHeader = false
-      } else {
-        this.showHeader = true
-      }
-      this.top = scrolltop
-    }, 200)
   }
 }
 </script>

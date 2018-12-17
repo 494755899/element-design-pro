@@ -1,7 +1,11 @@
 <template>
     <element-table>
       <template slot="pageHeader">
-        <el-progress type="circle" :percentage="100" status="text">Done</el-progress>
+        <el-steps :active="1">
+          <el-step title="步骤 1" description="这是一段很长很长很长的描述性文字"></el-step>
+          <el-step title="步骤 2" description="这是一段很长很长很长的描述性文字"></el-step>
+          <el-step title="步骤 3" description="这段就没那么长了"></el-step>
+        </el-steps>
       </template>
       <template slot="header">
          <el-form :inline="true" :model="formInline" class="demo-form-inline">
@@ -54,7 +58,9 @@
 </template>
 
 <script>
+import ElementMixin from '@/mixins/baseElement/ElementTable'
 export default {
+  mixins: [ElementMixin],
   created () {
     setTimeout(() => {
       this.loading = false
@@ -65,18 +71,15 @@ export default {
   },
   data () {
     return {
+      active: 0,
       loading: true,
-      height: 0,
       formInline: {
         user: '',
         region: '',
         date1: '',
         date2: ''
       },
-      tableData: [],
-      pageSize: 10,
-      page: 3,
-      total: 100
+      tableData: []
     }
   },
   methods: {

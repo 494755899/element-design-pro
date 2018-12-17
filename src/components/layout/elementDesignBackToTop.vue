@@ -1,6 +1,6 @@
 <template>
   <transition name="el-zoom-in-center">
-    <div v-show="visible" :style="customStyle" class="back-to-ceiling" @click="backToTopHandler">
+    <div :style="customStyle" class="back-to-ceiling" @click="backToTopHandler">
       <svg width="16" height="16" viewBox="0 0 17 17" xmlns="http://www.w3.org/2000/svg" class="Icon Icon--backToTopArrow" aria-hidden="true" style="height: 16px; width: 16px;">
         <title>回到顶部</title>
         <g>
@@ -12,15 +12,9 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import _ from 'lodash'
 export default {
   name: 'BackToTop',
   props: {
-    visibilityHeight: {
-      type: Number,
-      default: 400
-    },
     backPosition: {
       type: Number,
       default: 0
@@ -38,14 +32,7 @@ export default {
           background: '#e7eaf1'
         }
       }
-    },
-    transitionName: {
-      type: String,
-      default: 'fade'
     }
-  },
-  computed: {
-    ...mapState(['onlyScreen', 'backToTop'])
   },
   data () {
     return {
@@ -54,51 +41,21 @@ export default {
       isMoving: false
     }
   },
-  watch: {
-    onlyScreen: {
-      handler (value) {
-        if (value) {
-          this.$nextTick(() => {
-            this.contentDom = document.getElementById('pageContent')
-            this.contentDom.addEventListener('scroll', this.DomhandleScroll)
-          })
-        } else {
-          this.$nextTick(() => {
-            this.contentDom = document.documentElement || document.body
-            window.addEventListener('scroll', this.WindowhandleScroll)
-          })
-        }
-      },
-      immediate: true
-    }
-  },
-  // beforeDestroy () {
-  //   this.contentDom.removeEventListener('scroll', this.handleScroll)
-  //   if (this.interval) {
-  //     clearInterval(this.interval)
-  //   }
-  // },
   methods: {
-    DomhandleScroll: _.debounce(function () {
-      this.visible = this.contentDom.scrollTop > this.visibilityHeight
-    }, 200),
-    WindowhandleScroll: _.debounce(function () {
-      const srollTopDistance = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
-      this.visible = srollTopDistance > this.visibilityHeight
-    }, 200),
     backToTopHandler () {
       if (this.isMoving) return
-      const start = this.contentDom.scrollTop
+      const dom = document.documentElement || document.body
+      const start = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
       let i = 0
       this.isMoving = true
       this.interval = setInterval(() => {
         const next = Math.floor(this.easeInOutQuad(10 * i, start, -start, 500))
         if (next <= this.backPosition) {
-          this.contentDom.scrollTo(0, this.backPosition)
+          dom.scrollTo(0, this.backPosition)
           clearInterval(this.interval)
           this.isMoving = false
         } else {
-          this.contentDom.scrollTo(0, next)
+          dom.scrollTo(0, next)
         }
         i++
       }, 16.7)

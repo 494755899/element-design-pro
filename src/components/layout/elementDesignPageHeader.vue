@@ -2,7 +2,30 @@
 <div class='element-design-pro-pageHeader' id="element-Table-pageHeader">
   <div class="element-design-pro-pageHeader-inner">
     <div class="element-design-pro-pageHeader-wrap">
-      <div>
+      <div class="element-design-pro-tag-wrap">
+        <div>
+          <el-tag
+            @click.native="tagHandler(tag.path)"
+            @close="tagClose(tag.path, index)"
+            class="element-design-pro-tag"
+            v-for="(tag, index) in innerNavgation"
+            :key="tag.name"
+            :type="tag.path === activeTag ? '' : 'info'"
+            closable>
+            {{tag.name}}
+          </el-tag>
+        </div>
+        <el-dropdown @command="dropdownTag">
+          <el-button type="primary" size="mini">
+            标签选项<i class="el-icon-arrow-down el-icon--right"></i>
+          </el-button>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item command="close-another" :disabled="innerNavgation.length === 1">关闭其它</el-dropdown-item>
+            <el-dropdown-item command="close-all">关闭所有</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </div>
+      <div class="element-design-pro-breadcrumb-wrap">
         <el-breadcrumb separator="/">
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
           <template v-for="(breadcrumb, index) in breadcrumbs">
@@ -11,28 +34,9 @@
           </template>
         </el-breadcrumb>
       </div>
-      <el-tag
-        @click.native="tagHandler(tag.path)"
-        @close="tagClose(tag.path, index)"
-        class="element-design-pro-tag"
-        v-for="(tag, index) in innerNavgation"
-        :key="tag.name"
-        :type="tag.path === activeTag ? '' : 'info'"
-        closable>
-        {{tag.name}}
-      </el-tag>
     </div>
-    <el-dropdown @command="dropdownTag">
-      <el-button type="primary" size="mini">
-        标签选项<i class="el-icon-arrow-down el-icon--right"></i>
-      </el-button>
-      <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item command="close-another" :disabled="innerNavgation.length === 1">关闭其它</el-dropdown-item>
-        <el-dropdown-item command="close-all">关闭所有</el-dropdown-item>
-      </el-dropdown-menu>
-    </el-dropdown>
+    <slot></slot>
   </div>
-  <slot></slot>
 </div>
 </template>
 <style lang="less">
@@ -44,8 +48,19 @@
   flex-direction: column;
   border-bottom: 1px solid #e8e8e8;
   .element-design-pro-pageHeader-wrap {
+    width: 100%;
     display: flex;
     align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
+    .element-design-pro-tag-wrap {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+    .element-design-pro-breadcrumb-wrap {
+      padding: 10px 0;
+    }
     > div {
       margin-right: 15px;
     }
@@ -63,7 +78,7 @@
 .element-design-pro-pageHeader-inner {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
 }
 .el-content-contentWidth-Fixed.el-top-mode {
   .element-design-pro-pageHeader-inner {

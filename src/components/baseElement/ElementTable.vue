@@ -28,7 +28,6 @@
 <script>
 
 import Bus from '@/util/buildIn/bus'
-// import _ from 'lodash'
 export default {
   created () {
     // 如果是自动请求，则初始化自动请求一次
@@ -39,9 +38,9 @@ export default {
       // 初始化计算table的高度
       this.tableheight()
       // 监听视口变化的事件,再次调整table变化的高度
-      // window.onresize = _.debounce(() => {
-      //   this.tableheight()
-      // }, 100) 需要修改，两者只能一者监听
+      Bus.$on('resize', () => {
+        this.tableheight()
+      })
     })
   },
   props: {
