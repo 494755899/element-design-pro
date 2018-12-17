@@ -44,18 +44,18 @@ export default {
   methods: {
     backToTopHandler () {
       if (this.isMoving) return
-      const dom = document.documentElement || document.body
       const start = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
       let i = 0
       this.isMoving = true
       this.interval = setInterval(() => {
         const next = Math.floor(this.easeInOutQuad(10 * i, start, -start, 500))
+        console.log(next)
         if (next <= this.backPosition) {
-          dom.scrollTo(0, this.backPosition)
+          window.scrollTo(0, this.backPosition)
           clearInterval(this.interval)
           this.isMoving = false
         } else {
-          dom.scrollTo(0, next)
+          window.scrollTo(0, next)
         }
         i++
       }, 16.7)
