@@ -20,6 +20,11 @@ export default [
         id: '1-3'
       },
       {
+        name: '自动分页表格筛选',
+        path: '/Form_autoForm',
+        id: '1-4'
+      },
+      {
         name: '混元霹雳手',
         id: '10',
         children: [
@@ -32,6 +37,21 @@ export default [
             path: '/scrollClass/second'
           }
         ]
+      }
+    ]
+  },
+  {
+    name: '错误处理',
+    id: '2',
+    icon: 'el-icon-warning',
+    children: [
+      {
+        name: '404页面',
+        path: '/404'
+      },
+      {
+        name: '无访问权限页面',
+        path: '/403'
       }
     ]
   }

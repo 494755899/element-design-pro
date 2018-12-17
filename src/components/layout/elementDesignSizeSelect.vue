@@ -17,9 +17,7 @@
 export default {
   methods: {
     handleSetSize (size) {
-      console.log(size)
       this.$ELEMENT.size = size
-      console.log(this.$route)
       const { fullPath } = this.$route
       this.$nextTick(() => {
         this.$router.replace({

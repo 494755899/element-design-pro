@@ -63,7 +63,6 @@ export default {
             this.contentDom.addEventListener('scroll', this.DomhandleScroll)
           })
         } else {
-          console.log('sssss')
           this.$nextTick(() => {
             this.contentDom = document.documentElement || document.body
             window.addEventListener('scroll', this.WindowhandleScroll)
@@ -81,12 +80,9 @@ export default {
   // },
   methods: {
     DomhandleScroll: _.debounce(function () {
-      console.log(this)
       this.visible = this.contentDom.scrollTop > this.visibilityHeight
-      console.log(this.contentDom.scrollTop)
     }, 200),
     WindowhandleScroll: _.debounce(function () {
-      console.log(this)
       const srollTopDistance = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
       this.visible = srollTopDistance > this.visibilityHeight
     }, 200),

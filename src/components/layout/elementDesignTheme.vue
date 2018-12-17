@@ -51,7 +51,6 @@ export default {
       const getHandler = (variable, id) => {
         return () => {
           const originalCluster = this.getThemeCluster(this.ORIGINAL_THEME.replace('#', ''))
-          console.log(originalCluster)
           const newStyle = this.updateStyle(this[variable], originalCluster, themeCluster)
 
           let styleTag = document.getElementById(id)

@@ -21,7 +21,6 @@ if (ClientWidth <= 1200) {
 } else if (ClientWidth > 1450 && ClientWidth <= 1700) {
   size = 'medium'
 }
-console.log(document.body.clientWidth)
 Vue.use(ElementUI, { size })
 Vue.use(VueRouter)
 

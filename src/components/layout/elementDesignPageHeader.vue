@@ -1,5 +1,5 @@
 <template>
-<div class='element-design-pro-pageHeader'>
+<div class='element-design-pro-pageHeader' id="element-Table-pageHeader">
   <div class="element-design-pro-pageHeader-inner">
     <div class="element-design-pro-pageHeader-wrap">
       <div>
@@ -23,7 +23,7 @@
       </el-tag>
     </div>
     <el-dropdown @command="dropdownTag">
-      <el-button type="primary">
+      <el-button type="primary" size="mini">
         标签选项<i class="el-icon-arrow-down el-icon--right"></i>
       </el-button>
       <el-dropdown-menu slot="dropdown">
@@ -102,7 +102,6 @@ export default {
       }
     },
     tagHandler (path) {
-      console.log('hander')
       this.$router.push(path)
       this.no = false
     },
@@ -118,7 +117,6 @@ export default {
       if (this.no) {
         return
       }
-      console.log('--------')
       var that = this
       let path = []
       let flag = false
@@ -126,7 +124,6 @@ export default {
         function getNodePath(node) {
           path.push(node)
           if(node.path === id) {
-            console.log('\\\\||||')
             that.activeTag = node.path
             const flag = that.innerNavgation.every(item => item.path !== node.path)
             if (flag) {

@@ -1,8 +1,8 @@
 import ElementDialog from './ElementDialog'
-// import ElementTable from './ElementTable'
+import ElementTable from './ElementTable'
 import ElementContainer from './ElementContainer'
 export default {
   ElementDialog,
-  // ElementTable,
+  ElementTable,
   ElementContainer
 }

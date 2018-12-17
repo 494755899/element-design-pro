@@ -1,5 +1,5 @@
 <template>
-  <element-container>
+  <element-container layout>
     <template slot="pageHeader">
       <el-progress type="circle" :percentage="100" status="text">Done</el-progress>
     </template>

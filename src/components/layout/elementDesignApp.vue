@@ -163,7 +163,6 @@ export default {
   },
   methods: {
     hideHeaderHandler: _.throttle(function () {
-      console.log(document.documentElement.scrollTop)
       const content = document.documentElement || document.body
       const scrolltop = content.scrollTop
       if (scrolltop > this.top && scrolltop > 200) {

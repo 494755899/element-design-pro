@@ -66,7 +66,6 @@ export default {
   },
   methods: {
     checkDialogName (name) {
-      console.log(name)
       return name.startsWith('d_')
     },
     /**
