@@ -26,11 +26,11 @@
 </template>
 
 <script>
-import BEConfig from '@/config/baseElement'
+// import BEConfig from '@/config/baseElement'
 import Bus from '@/util/buildIn/bus'
 export default {
   created () {
-    console.log(BEConfig)
+    // console.log(BEConfig)
     // 如果是自动请求，则初始化自动请求一次
     this.init && this.$parent.initList()
   },
@@ -65,10 +65,10 @@ export default {
       return this.$parent.total
     },
     page () {
-      return this.$parent[BEConfig.elementTable.pageName]
+      return this.$parent[this.$parent.pageName]
     },
     pageSize () {
-      return this.$parent[BEConfig.elementTable.pageSizeName]
+      return this.$parent[this.$parent.pageSizeName]
     }
   },
   methods: {
@@ -88,12 +88,12 @@ export default {
     },
     // 改变请求条目数量,自动调用接口
     handleSizeChange (val) {
-      this.$parent[BEConfig.elementTable.pageSizeName] = val
+      this.$parent[this.$parent.pageSizeName] = val
       this.$parent.initList()
     },
     // 改变请求条目页数，自动调用接口
     handleCurrentChange (val) {
-      this.$parent[BEConfig.elementTable.pageName] = val
+      this.$parent[this.$parent.pageName] = val
       this.$parent.initList()
     }
   },

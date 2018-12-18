@@ -1,6 +1,6 @@
 <template>
   <element-container layout>
-    <el-form :inline="true" :model="formInline" class="demo-form-inline">
+    <!-- <el-form :inline="true" :model="formInline" class="demo-form-inline">
       <el-form-item label="审批人">
         <el-input v-model="formInline.user" placeholder="审批人"></el-input>
       </el-form-item>
@@ -22,28 +22,29 @@
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>
       </el-form-item>
-    </el-form>
-    <el-table
-      v-loading="loading"
+    </el-form> -->
+    <element-base-table
+      :tableData="tableData"
+      :tableHeader="tableHeader"
+      :handleSelectionChange="handleSelectionChange"
       border
-      :data="tableData"
-      style="width: 100%">
-      <el-table-column
-        prop="date"
-        label="日期"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="name"
-        label="姓名"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="address"
-        label="地址">
-      </el-table-column>
-    </el-table>
-    <el-pagination
+      :row-class-name="rowClassName">
+      <template slot-scope="{ row, tag }">
+        <span @click="ss(scope)" v-if="tag === 'name'">
+          {{row.name + 'sssss'}}
+        </span>
+        <span @click="ss(scope)" v-if="tag === 'name2'">
+          {{row.name + 'dddddd'}}
+        </span>
+      </template>
+      <!-- <el-table-column label="操作" width="200">
+        <template slot-scope="scope">
+          <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
+          <el-button type="text" size="small">编辑</el-button>
+        </template>
+      </el-table-column> -->
+    </element-base-table>
+    <!-- <el-pagination
       class="pagination"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
@@ -52,7 +53,7 @@
       :page-size="10"
       layout="total, sizes, prev, pager, next, jumper"
       :total="100">
-    </el-pagination>
+    </el-pagination> -->
   </element-container>
 </template>
 
@@ -73,16 +74,79 @@ export default {
         date2: ''
       },
       tableVisible: {},
-      tableData: Array(10).fill({
-        flag: false,
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }),
+      tableData: [
+        {
+          date: 1514764400000,
+          name: '王小虎1',
+          address: '上海市普陀区金沙江路 15181 弄'
+        },
+        {
+          date: 1514754800000,
+          name: '王小虎2',
+          address: '上海市普陀区金沙江路 15182 弄'
+        },
+        {
+          date: 1514764800000,
+          name: '王小虎3',
+          address: '上海市普陀区金沙江路 15183 弄'
+        },
+        {
+          date: 1514864800000,
+          name: '王小虎4',
+          address: '上海市普陀区金沙江路 15184 弄'
+        }
+      ],
+      tableHeader: [
+        { type: 'selection' },
+        { type: 'index', fixed: 'left', indexMethod2: this.indexMethod2 },
+        { customer: true, prop: 'name', label: '姓名', width: 200 },
+        { customer: true, prop: 'name2', label: '姓名2', width: 200 },
+        { prop: 'date', label: '日期', width: 200, filter: 'time' },
+        { prop: 'date', label: '日期2', width: 200, filterMethod: this.aa },
+        { prop: 'address', label: '地址', width: 100 },
+        {
+          type: 'operate',
+          label: '操作2',
+          width: '200',
+          fixed: 'right',
+          operates: [
+            { name: '编辑', method: this.modify },
+            { name: '删除', method: this.cancel, primary: 'danger' }
+          ]
+        }
+      ],
       currentPage4: 4
     }
   },
   methods: {
+    indexMethod2 (index) {
+      return index + 10
+    },
+    modify (row, index) {
+      console.log(row)
+      console.log(index)
+    },
+    cancel (row, index) {
+      console.log(row)
+      console.log(index)
+    },
+    handleSelectionChange (a, b) {
+      console.log(a, b)
+    },
+    ss (value) {
+      console.log(value)
+    },
+    aa (value) {
+      return value + 'aaaaaaa'
+    },
+    rowClassName ({ row, rowIndex }) {
+      if (rowIndex === 1) {
+        return 'warning-row'
+      } else if (rowIndex === 3) {
+        return 'success-row'
+      }
+      return ''
+    },
     add (index) {
       console.log(this.tableData)
       this.tableData[index].flag = !this.tableData[index].flag
@@ -101,7 +165,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .line {
   text-align: center;
 }
