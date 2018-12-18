@@ -1,8 +1,8 @@
 export default {
   elementTable: {
     pageSize: 10,
-    page: 1,
-    pageName: 'page',
+    pageSizes: [10, 70, 100],
+    pageName: 'pageNo',
     pageSizeName: 'pageSize'
   }
 }

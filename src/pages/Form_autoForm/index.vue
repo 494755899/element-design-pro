@@ -62,12 +62,16 @@ import ElementMixin from '@/mixins/baseElement/ElementTable'
 export default {
   mixins: [ElementMixin],
   created () {
+    console.log(this.$data)
     setTimeout(() => {
       this.loading = false
     }, 1000)
-    setTimeout(() => {
-      this.total = 1000
-    }, 3000)
+  //   setTimeout(() => {
+  //     this.total = 1000
+  //   }, 2000)
+  //   setTimeout(() => {
+  //     this.page = 5
+  //   }, 3000)
   },
   data () {
     return {
@@ -88,11 +92,12 @@ export default {
     },
     initList () {
       setTimeout(() => {
-        this.tableData = Array(20).fill({
+        this.tableData = Array(10).fill({
           date: '2016-05-02',
           name: '王小虎',
           address: '上海市普陀区金沙江路 1518 弄'
         })
+        this.total = 200
       }, 1000)
     }
   }
