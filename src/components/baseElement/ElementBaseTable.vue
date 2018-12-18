@@ -1,7 +1,7 @@
 <template>
   <div>
-    <el-table :data="tableData"  @selection-change="handleSelectionChange" v-bind="$attrs">
-      <template v-for="({prop, label, width, fixed, filter, filterMethod, customer, type, indexMethod2, operates }, index) in tableHeader">
+    <el-table :data="tableData" @selection-change="handleSelectionChange" v-bind="$attrs">
+      <template v-for="({key, label, width, fixed, filter, filterMethod, customer, type, indexMethod2, operates }, index) in tableHeader">
         <el-table-column
           v-if="type === 'index'"
           type="index"
@@ -37,12 +37,12 @@
           :label="label"
           :width="width">
           <span slot-scope="scope">
-            <span v-if="filterMethod">{{filterMethod(scope.row[prop])}}</span>
-            <span v-else-if="filter === 'time'">{{scope.row[prop] | formatTime }}</span>
+            <span v-if="filterMethod">{{filterMethod(scope.row[key])}}</span>
+            <span v-else-if="filter === 'time'">{{scope.row[key] | formatTime }}</span>
             <span v-else-if="customer">
-              <slot v-bind="{row: scope.row, tag: prop}"></slot>
+              <slot v-bind="{row: scope.row, tag: key}"></slot>
             </span>
-            <span v-else>{{scope.row[prop]}}</span>
+            <span v-else>{{scope.row[key]}}</span>
           </span>
         </el-table-column>
       </template>
@@ -52,9 +52,6 @@
 
 <script>
 export default {
-  created () {
-    console.log(this.$attrs)
-  },
   props: {
     tableData: {
       type: Array,
@@ -69,7 +66,8 @@ export default {
       }
     },
     handleSelectionChange: {
-      type: Function
+      type: Function,
+      default: () => {}
     }
   },
   methods: {
@@ -79,13 +77,3 @@ export default {
   }
 }
 </script>
-
-<style lang="less">
-.el-table .warning-row {
-  background: oldlace;
-}
-
-.el-table .success-row {
-  background: #f0f9eb;
-}
-</style>

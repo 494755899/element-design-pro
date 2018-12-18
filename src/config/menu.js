@@ -41,8 +41,19 @@ export default [
     ]
   },
   {
-    name: '错误处理',
+    name: '数据生成器',
+    icon: 'el-icon-setting',
     id: '2',
+    children: [
+      {
+        name: '表格数据生成器',
+        path: '/Generator_table'
+      }
+    ]
+  },
+  {
+    name: '错误处理',
+    id: '3',
     icon: 'el-icon-warning',
     children: [
       {

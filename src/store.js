@@ -8,7 +8,6 @@ let localStorageSetting = {
   contentWidth: 'Fixed',
   fixSiderbar: false,
   fixHeader: false,
-  onlyScreen: false,
   navTheme: 'dark',
   hideHeader: false,
   backToTop: false,

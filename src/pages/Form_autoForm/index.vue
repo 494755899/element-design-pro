@@ -1,113 +1,86 @@
 <template>
-    <element-table>
-      <template slot="pageHeader">
-        <el-steps :active="1">
-          <el-step title="步骤 1" description="这是一段很长很长很长的描述性文字"></el-step>
-          <el-step title="步骤 2" description="这是一段很长很长很长的描述性文字"></el-step>
-          <el-step title="步骤 3" description="这段就没那么长了"></el-step>
-        </el-steps>
-      </template>
-      <template slot="header">
-         <el-form :inline="true" :model="formInline" class="demo-form-inline">
-          <el-form-item label="审批人">
-            <el-input v-model="formInline.user" placeholder="审批人"></el-input>
-          </el-form-item>
-          <el-form-item label="活动区域">
-            <el-select v-model="formInline.region" placeholder="活动区域">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="活动时间">
-            <el-col :span="11">
-              <el-date-picker type="date" placeholder="选择日期" v-model="formInline.date1" style="width: 100%;"></el-date-picker>
-            </el-col>
-            <el-col class="line" :span="2">-</el-col>
-            <el-col :span="11">
-              <el-time-picker type="fixed-time" placeholder="选择时间" v-model="formInline.date2" style="width: 100%;"></el-time-picker>
-            </el-col>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="onSubmit">查询</el-button>
-          </el-form-item>
-        </el-form>
-      </template>
-      <el-table
+  <element-container layout pagination>
+    <template slot="pageHeader">
+      <el-steps :active="1">
+        <el-step title="步骤 1" description="这是一段很长很长很长的描述性文字"></el-step>
+        <el-step title="步骤 2" description="这是一段很长很长很长的描述性文字"></el-step>
+        <el-step title="步骤 3" description="这段就没那么长了"></el-step>
+      </el-steps>
+    </template>
+    <element-base-table
+      :tableData="tableData"
+      :tableHeader="tableHeader"
+      height="600"
       border
-        v-loading="loading"
-        stripe
-        :data="tableData"
-        style="width: 100%">
-        <el-table-column
-          prop="date"
-          label="日期"
-          width="180">
-        </el-table-column>
-        <el-table-column
-          prop="name"
-          label="姓名"
-          width="180">
-        </el-table-column>
-        <el-table-column
-          prop="address"
-          label="地址">
-        </el-table-column>
-      </el-table>
-    </element-table>
-
+    >
+      <template slot-scope="{ row, tag }">
+        <span v-if="tag === 'name'">
+          {{row.name + 'sssss'}}
+        </span>
+        <span v-if="tag === 'name2'">
+          {{row.name + 'dddddd'}}
+        </span>
+      </template>
+    </element-base-table>
+  </element-container>
 </template>
 
 <script>
-import ElementMixin from '@/mixins/baseElement/ElementTable'
+import ElementPagination from '@/mixins/baseElement/ElementPagination'
 export default {
-  mixins: [ElementMixin],
-  created () {
-    console.log(this.$data)
-    setTimeout(() => {
-      this.loading = false
-    }, 1000)
-  //   setTimeout(() => {
-  //     this.total = 1000
-  //   }, 2000)
-  //   setTimeout(() => {
-  //     this.page = 5
-  //   }, 3000)
-  },
+  mixins: [ElementPagination],
   data () {
     return {
-      active: 0,
-      loading: true,
-      formInline: {
-        user: '',
-        region: '',
-        date1: '',
-        date2: ''
-      },
-      tableData: []
+      tableData: [],
+      tableHeader: [
+        { type: 'selection' },
+        { type: 'index', fixed: 'left' },
+        { customer: true, key: 'name', label: '姓名', width: 300 },
+        { customer: true, key: 'name2', label: '姓名2', width: 300 },
+        { key: 'date', label: '日期', width: 200, filter: 'time' },
+        { key: 'date', label: '日期2', width: 200 },
+        { key: 'address', label: '地址', width: 100 },
+        {
+          type: 'operate',
+          label: '操作2',
+          width: '190',
+          fixed: 'right',
+          operates: [
+            { name: '编辑' },
+            { name: '删除', primary: 'danger' }
+          ]
+        }
+      ]
     }
   },
   methods: {
-    onSubmit () {
-      console.log('submit!')
-    },
     initList () {
       setTimeout(() => {
-        this.tableData = Array(10).fill({
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        })
-        this.total = 200
+        this.tableData = [
+          {
+            date: 1514764400000,
+            name: '王小虎1',
+            address: '上海市普陀区金沙江路 15181 弄'
+          },
+          {
+            date: 1514754800000,
+            name: '王小虎2',
+            address: '上海市普陀区金沙江路 15182 弄'
+          },
+          {
+            date: 1514764800000,
+            name: '王小虎3',
+            address: '上海市普陀区金沙江路 15183 弄'
+          },
+          {
+            date: 1514864800000,
+            name: '王小虎4',
+            address: '上海市普陀区金沙江路 15184 弄'
+          }
+        ]
+        this.total = 100
       }, 1000)
     }
   }
 }
 </script>
-
-<style lang="less" scoped>
-.occupy {
-  width: 300px;
-  height: 200px;
-  position: relative;
-}
-</style>

@@ -116,7 +116,6 @@
 
 <script>
 import _ from 'lodash'
-import Bus from '@/util/buildIn/bus'
 import { mapState } from 'vuex'
 import ElementDesignBackToTop from '@/components/layout/elementDesignBackToTop'
 import ElementDesignHeader from '@/components/layout/elementDesignHeader'
@@ -126,10 +125,6 @@ import ElementDesignDialog from '@/components/layout/elementDesignDialog'
 export default {
   name: 'app',
   created () {
-    window.onresize = _.debounce(() => {
-      Bus.$emit('resize')
-    }, 100)
-    // 滚动监听
     window.onscroll = _.throttle(() => {
       const srollTopDistance = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
       if (this.hideHeader) {

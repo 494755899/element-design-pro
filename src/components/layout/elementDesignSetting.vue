@@ -93,7 +93,7 @@
           >
           </el-switch>
         </div>
-        <div>
+        <!-- <div>
           <span>一屏流展式</span>
           <el-switch
             :width='35'
@@ -101,7 +101,7 @@
             v-model="checkboxOnlyScreen"
           >
           </el-switch>
-        </div>
+        </div> -->
         <!-- <div>
           <span>回到顶部</span>
           <el-switch

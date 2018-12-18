@@ -37,23 +37,7 @@
           {{row.name + 'dddddd'}}
         </span>
       </template>
-      <!-- <el-table-column label="操作" width="200">
-        <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-          <el-button type="text" size="small">编辑</el-button>
-        </template>
-      </el-table-column> -->
     </element-base-table>
-    <!-- <el-pagination
-      class="pagination"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="currentPage4"
-      :page-sizes="[100, 200, 300, 400]"
-      :page-size="10"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="100">
-    </el-pagination> -->
   </element-container>
 </template>
 

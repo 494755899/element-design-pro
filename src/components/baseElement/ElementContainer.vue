@@ -6,63 +6,73 @@
     <div
       class="element-design-pro-page-wrapper-content"
       :class="{'element-design-pro-page-wrapper-content-layout': layout}"
-      id="pageContent"
-      ref="pageContent"
     >
       <slot></slot>
+      <el-pagination
+        v-if="pagination"
+        :current-page="page"
+        :page-sizes="pageSizes"
+        :page-size="pageSize"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total">
+      </el-pagination>
     </div>
   </div>
 </template>
 
 <script>
-import Bus from '@/util/buildIn/bus'
-import { mapState } from 'vuex'
+// import ElementPagination from '@/mixins/baseElement/ElementPagination'
 import ElementDesignPageHeader from '@/components/layout/elementDesignPageHeader'
 export default {
-  mounted () {
-    Bus.$on('resize', () => {
-      this.caculateHeight()
-    })
+  created () {
+    this.pagination && this.init && this.$parent.initList()
   },
   props: {
+    init: {
+      type: Boolean,
+      default: true
+    },
     layout: {
+      type: Boolean,
+      default: false
+    },
+    pagination: {
       type: Boolean,
       default: false
     }
   },
-  computed: {
-    ...mapState(['onlyScreen'])
+  data () {
+    return {
+      pageSizes: this.$parent.pageSizes
+    }
   },
-  watch: {
-    onlyScreen: {
-      handler (value) {
-        if (value) {
-          this.$nextTick(() => {
-            this.caculateHeight()
-          })
-        } else {
-          this.$nextTick(() => {
-            this.$refs.pageContent.style.height = 'auto'
-          })
-        }
-      },
-      immediate: true
+  computed: {
+    total () {
+      return this.$parent.total
+    },
+    page () {
+      return this.$parent[this.$parent.pageName]
+    },
+    pageSize () {
+      return this.$parent[this.$parent.pageSizeName]
+    }
+  },
+  methods: {
+    // 改变请求条目数量,自动调用接口
+    handleSizeChange (val) {
+      this.$parent[this.$parent.pageSizeName] = val
+      this.$parent.initList()
+    },
+    // 改变请求条目页数，自动调用接口
+    handleCurrentChange (val) {
+      this.$parent[this.$parent.pageName] = val
+      this.$parent.initList()
     }
   },
   components: {
     ElementDesignPageHeader
-  },
-  methods: {
-    caculateHeight () {
-      const headerHeight = 64
-      const pageHeaderHeight = this.$refs.pageHeader.$el.offsetHeight
-      const pageContentMarginPadding = 48
-      const totalHeight = headerHeight + pageHeaderHeight + pageContentMarginPadding
-      this.$refs.pageContent.style.height = window.innerHeight - totalHeight + 'px'
-    }
-  },
-  destroyed () {
-    Bus.$off('resize')
   }
 }
 </script>

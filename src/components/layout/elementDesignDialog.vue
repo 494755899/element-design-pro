@@ -87,6 +87,7 @@ export default {
       console.log(pathName)
       import(`../../pages${pathName}` /* webpackExclude: /components/ */).then(module => {
         let dialogTemplate = Vue.extend(module.default)
+        console.log(dialogTemplate)
         let extendTemplate = {
           data () {
             // 声明一个对象
