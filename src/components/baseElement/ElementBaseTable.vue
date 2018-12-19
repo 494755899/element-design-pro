@@ -1,50 +1,20 @@
 <template>
   <div>
-    <el-table :data="tableData" @selection-change="handleSelectionChange" v-bind="$attrs">
-      <template v-for="({key, label, width, fixed, filter, filterMethod, customer, type, indexMethod2, operates }, index) in tableHeader">
-        <el-table-column
-          v-if="type === 'index'"
-          type="index"
-          :key="index"
-          :index="indexMethod2 || indexMethod"
-          :label="label || '序号'"
-          :width="width || 50">
-        </el-table-column>
-        <el-table-column
-          :fixed="fixed"
-          v-else-if="type === 'selection'"
-          type="selection"
-          :key="index"
-          :width="width || 50">
-        </el-table-column>
-        <el-table-column
-          :fixed="fixed"
-          v-else-if="type === 'operate'"
-          :key="index"
-          :label="label || '操作'"
-          :width="width || 100">
+    <el-table v-bind="$attrs" v-on='$listeners'>
+      <template v-for="(item, index) in tableHeader">
+        <el-table-column v-bind="item" v-if="item.customer" :key="index">
           <template slot-scope="scope">
-            <el-button v-for="(button, index) in operates" @click="button.method(scope.row, scope.$index)" :type="button.primary || 'primary'" :key="index">
-              {{button.name}}
-            </el-button>
+            <slot v-bind="{scope, prop: item.prop}"></slot>
           </template>
         </el-table-column>
-        <el-table-column
-          show-overflow-tooltip
-          v-else
-          :key="index"
-          :fixed="fixed"
-          :label="label"
-          :width="width">
-          <span slot-scope="scope">
-            <span v-if="filterMethod">{{filterMethod(scope.row[key])}}</span>
-            <span v-else-if="filter === 'time'">{{scope.row[key] | formatTime }}</span>
-            <span v-else-if="customer">
-              <slot v-bind="{row: scope.row, tag: key}"></slot>
-            </span>
-            <span v-else>{{scope.row[key]}}</span>
-          </span>
+        <el-table-column v-else-if='item.type === "operate"' v-bind="item" :key="index">
+          <template slot-scope="scope">
+            <template v-for="(operate, index) in item.operates">
+              <el-button v-bind="operate" :key="index" @click="operateHandler(scope, operate.action)">{{operate.name}}</el-button>
+            </template>
+          </template>
         </el-table-column>
+        <el-table-column  v-bind="item" v-else :key="index"></el-table-column>
       </template>
     </el-table>
   </div>
@@ -52,27 +22,19 @@
 
 <script>
 export default {
+  inheritAttrs: false,
   props: {
-    tableData: {
-      type: Array,
-      default () {
-        return []
-      }
-    },
     tableHeader: {
       type: Array,
+      require: true,
       default () {
         return []
       }
-    },
-    handleSelectionChange: {
-      type: Function,
-      default: () => {}
     }
   },
   methods: {
-    indexMethod (index) {
-      return index + 1
+    operateHandler (scope, action) {
+      this.$emit(action, scope)
     }
   }
 }

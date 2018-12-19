@@ -1,3 +1,9 @@
+
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 module.exports = {
-  css: { extract: false }
+  configureWebpack: {
+    plugins: [
+      new MonacoWebpackPlugin()
+    ]
+  }
 }

@@ -76,9 +76,6 @@
   }
 }
 .element-design-pro-pageHeader-inner {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
 }
 .el-content-contentWidth-Fixed.el-top-mode {
   .element-design-pro-pageHeader-inner {

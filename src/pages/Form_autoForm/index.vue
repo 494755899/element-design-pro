@@ -8,17 +8,19 @@
       </el-steps>
     </template>
     <element-base-table
-      :tableData="tableData"
+      :data="tableData"
       :tableHeader="tableHeader"
+      @select-all='sellectAll'
+      @edit="editHandler"
       height="600"
       border
     >
-      <template slot-scope="{ row, tag }">
-        <span v-if="tag === 'name'">
-          {{row.name + 'sssss'}}
+      <template slot-scope="{ scope, prop }">
+        <span v-if="prop === 'name'">
+          {{scope.row.name + 'sssss' + scope.$index}}
         </span>
-        <span v-if="tag === 'name2'">
-          {{row.name + 'dddddd'}}
+        <span v-if="prop === 'name2'">
+          {{scope.row.name + 'dddddd' + scope.$index}}
         </span>
       </template>
     </element-base-table>
@@ -34,26 +36,32 @@ export default {
       tableData: [],
       tableHeader: [
         { type: 'selection' },
-        { type: 'index', fixed: 'left' },
-        { customer: true, key: 'name', label: '姓名', width: 300 },
-        { customer: true, key: 'name2', label: '姓名2', width: 300 },
-        { key: 'date', label: '日期', width: 200, filter: 'time' },
-        { key: 'date', label: '日期2', width: 200 },
-        { key: 'address', label: '地址', width: 100 },
+        { type: 'index', fixed: true, label: '你妈' },
+        { customer: true, prop: 'name', label: '姓名' },
+        { customer: true, prop: 'name2', label: '姓名2' },
+        { prop: 'date', label: '日期', minWidth: 500, filter: 'time', align: 'right', 'header-align': 'center' },
+        { prop: 'date', label: '日期2' },
+        { prop: 'address', label: '地址', minWidth: 80, tooltip: true },
         {
           type: 'operate',
           label: '操作2',
           width: '190',
           fixed: 'right',
           operates: [
-            { name: '编辑' },
-            { name: '删除', primary: 'danger' }
+            { name: '编辑', action: 'edit' },
+            { name: '删除', type: 'danger', action: 'cancel' }
           ]
         }
       ]
     }
   },
   methods: {
+    editHandler ({ row, $index }) {
+      console.log(row, $index)
+    },
+    sellectAll (a, b) {
+      console.log(a)
+    },
     initList () {
       setTimeout(() => {
         this.tableData = [

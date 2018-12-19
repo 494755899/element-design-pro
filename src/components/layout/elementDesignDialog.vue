@@ -84,10 +84,8 @@ export default {
       // 通过路径名称转化组件id
       const id = pathName.replace(/\//g, '-').substr(1, pathName.length - 1)
       // 通过懒加载加载弹窗页面
-      console.log(pathName)
       import(`../../pages${pathName}` /* webpackExclude: /components/ */).then(module => {
         let dialogTemplate = Vue.extend(module.default)
-        console.log(dialogTemplate)
         let extendTemplate = {
           data () {
             // 声明一个对象
@@ -115,7 +113,8 @@ export default {
         }
         dialogTemplate = dialogTemplate.extend(extendTemplate)
         Vue.component(id, dialogTemplate)
-        that.dialogs.push(id)
+        console.log(Vue.options)
+        this.dialogs.push(id)
       }).catch(() => {
         console.log('Chunk loading failed', name)
       })
