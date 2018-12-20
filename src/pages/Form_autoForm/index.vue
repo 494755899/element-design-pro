@@ -1,6 +1,6 @@
 <template>
   <element-container layout pagination>
-    <template slot="pageHeader">
+    <template slot="pageHeader">3
       <el-steps :active="1">
         <el-step title="步骤 1" description="这是一段很长很长很长的描述性文字"></el-step>
         <el-step title="步骤 2" description="这是一段很长很长很长的描述性文字"></el-step>
@@ -15,12 +15,15 @@
       height="600"
       border
     >
-      <template slot-scope="{ scope, prop }">
-        <span v-if="prop === 'name'">
-          {{scope.row.name + 'sssss' + scope.$index}}
+      <template slot="append">
+        <el-table-column prop="address"></el-table-column>
+      </template>
+      <template slot-scope="{row, column, $index}">
+        <span v-if="column.property === 'name'">
+          {{row.name + 'dddddd' + $index}}
         </span>
-        <span v-if="prop === 'name2'">
-          {{scope.row.name + 'dddddd' + scope.$index}}
+        <span v-if="column.property === 'name2'">
+          {{row.name + 'sssss' + $index}}
         </span>
       </template>
     </element-base-table>
@@ -56,6 +59,9 @@ export default {
     }
   },
   methods: {
+    aa (scope) {
+      console.log(scope)
+    },
     editHandler ({ row, $index }) {
       console.log(row, $index)
     },
