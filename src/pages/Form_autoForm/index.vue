@@ -15,16 +15,23 @@
       height="600"
       border
     >
-      <template slot="append">
-        <el-table-column prop="address"></el-table-column>
-      </template>
-      <template slot-scope="{row, column, $index}">
-        <span v-if="column.property === 'name'">
-          {{row.name + 'dddddd' + $index}}
-        </span>
-        <span v-if="column.property === 'name2'">
-          {{row.name + 'sssss' + $index}}
-        </span>
+      <template  slot-scope="headerItem">
+        <el-table-column  v-if="headerItem.prop === 'name'" v-bind="headerItem">
+          <template slot="header" slot-scope='scope'>
+            <el-input @focus="dd(headerItem, scope)"></el-input>
+          </template>
+          <template slot-scope="scope">
+            <span @click="dd(headerItem, scope)">{{scope.row.name}}</span>
+          </template>
+        </el-table-column>
+        <el-table-column  v-if="headerItem.prop === 'name2'" v-bind="headerItem">
+          <template slot="header" slot-scope='scope'>
+            <el-button :scope="scope">11111</el-button>
+          </template>
+          <template slot-scope="scope">
+            {{scope.row.name}}
+          </template>
+        </el-table-column>
       </template>
     </element-base-table>
   </element-container>
@@ -41,8 +48,8 @@ export default {
         { type: 'selection' },
         { type: 'index', fixed: true, label: '你妈' },
         { customer: true, prop: 'name', label: '姓名' },
-        { customer: true, prop: 'name2', label: '姓名2' },
-        { prop: 'date', label: '日期', minWidth: 500, filter: 'time', align: 'right', 'header-align': 'center' },
+        { customer: true, prop: 'name2', width: 500 },
+        { prop: 'date', label: '日期', minWidth: 500, align: 'right', 'header-align': 'center' },
         { prop: 'date', label: '日期2' },
         { prop: 'address', label: '地址', minWidth: 80, tooltip: true },
         {
@@ -59,7 +66,8 @@ export default {
     }
   },
   methods: {
-    aa (scope) {
+    dd (item, scope) {
+      console.log(item)
       console.log(scope)
     },
     editHandler ({ row, $index }) {
