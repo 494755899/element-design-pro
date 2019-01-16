@@ -28,6 +28,7 @@ function initRoute () {
   result = `export default ${JSON.stringify(result)}`
   fs.writeFileSync(sourcePath, result)
 }
+
 initRoute()
 fs.watch(targetPath, () => {
   initRoute()
